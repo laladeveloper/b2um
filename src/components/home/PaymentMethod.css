@@ -1,0 +1,10 @@
+#pm-cont {
+   padding:1em;
+}
+
+@media (min-width:760px) {
+#pm-cont {
+   padding:0.6em 4em;
+}
+}
+/*  */

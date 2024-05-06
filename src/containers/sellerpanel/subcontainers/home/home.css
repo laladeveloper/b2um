@@ -1,0 +1,116 @@
+
+.home {
+ width: 100%;
+ background-color: white;
+ /* text-align: center; */
+ padding-bottom: 5em;
+}
+
+.banner-lead-home-fp {
+  padding-top: 6em;
+  padding-bottom: 4em;
+  border-radius: 0px 0px 20px 20px;
+  background-color: cyan;
+}
+
+.home-lead-title {
+  font-size: 30px;
+  font-family: 'nunitobold';
+  padding-left: 0.5em;
+}
+
+.home-lead-card-fp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 94%;
+  margin: auto;
+  gap:2em;
+}
+.home-lead-cardcont {
+  box-shadow: 7px 7px 2px rgba(100,100,100,0.1);
+  height: 200px;
+  width: 300px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.home-lead-cardcont img {
+  width: 170px;
+  margin-top: -2em;
+}
+.home-lead-cardcont div {
+  font-size: 18px;
+  font-family: 'nunitobold';
+}
+
+.home-feedbacks-lists {
+  width: 93%;
+  padding: 10px;
+  border-bottom: 1px solid #e1e1e2;
+  margin: auto;
+}
+.home-feedbacks-lists-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.home-feedbacks-lists-header-username {
+  font-family: 'nunitobold';
+}
+.home-feedbacks-lists-header-sub2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+.home-feedbacks-lists-header-btn {
+  background-color: tomato;
+  padding: 7px;
+  border-radius: 8px;
+  color:white ;
+  font-family: 'nunitobold';
+  font-size: 14px;
+}
+
+.home-feedbacks-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 93%;
+  padding: 0.7em 9px;
+  margin: auto;
+  margin-top: 1em;
+}
+.home-feedbacks-header-title {
+  font-size: 20px;
+  font-family: 'nunitobold';
+}
+.home-feedbacks-header-sub2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;  
+}
+
+@media (min-width:760px) {
+.home-lead-title {
+  padding-left: 1em;
+}
+.home-lead-card-fp { 
+  flex-direction: row;
+}
+}
+
+
+@media (max-width:760px) {
+.home-feedbacks-lists-header {
+  margin-bottom: 0.2em;
+}
+}

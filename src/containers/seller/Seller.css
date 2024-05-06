@@ -1,0 +1,66 @@
+
+
+.seller-body {
+  background-image: linear-gradient(90deg, #ffffff00,rgba(255, 255, 255, 0));
+  margin-top: -2.5em;
+}
+
+.hero-section {
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ align-items: center;
+ margin-top: 0em;
+ padding: 0.8em 0.9em;
+ overflow: hidden;
+ /* background-image: linear-gradient(45deg, #f1f1f1, #f3f3f3); */
+}
+
+.hero-section div h1 {
+  font-size: 34px;
+  margin-top: 2em;
+}
+.hero-section div p {
+  font-size: 20px;
+  margin-top: -0.7em;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.hero-section div button {
+  padding: 13px;
+  border-radius: 7px;
+  border:none;
+  font-weight: 600;
+  font-size: 15px;
+  background-color:  #2AFFE2;
+  border:1px solid rgba(10,10,10,0.7);
+}
+#link {
+  color: rgba(10,10,10,0.7);
+}
+#link:hover {
+  color: #e2f5f2;
+}
+.hero-poster {
+  width: 400px;
+}
+
+
+
+@media (min-width:760px) {
+.hero-section div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hero-section div h1 {
+  font-size: 40px;
+} 
+}
+
+@media (min-width:950px) {
+.hero-poster {
+ width: 645px;
+}
+}

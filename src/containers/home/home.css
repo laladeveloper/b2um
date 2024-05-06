@@ -1,0 +1,16 @@
+.main{
+    margin-top: 7em;
+}
+
+@media screen and (max-width:480px) {
+    .main{
+        margin-top: 4em;
+    }
+    
+}
+@media screen and (min-width:481) and( max-width:720px) {
+    .main{
+        margin-top: 7em;
+    }
+    
+}

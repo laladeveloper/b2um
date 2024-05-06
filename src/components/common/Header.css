@@ -1,0 +1,129 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  /* background-color: rgb(255, 255, 255); */
+  backdrop-filter: blur(3px) saturate(150%);
+  -webkit-backdrop-filter: blur(0px) saturate(80%);
+  background-color: rgba(255, 255, 255, 0.22);
+  z-index: 1;
+  border-bottom: 1px solid rgba(58, 58, 58, 0.2);
+  box-shadow: 5px 5px 5px rgba(61, 61, 61, 0.2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0em 0.8em 0;
+  /* font-family: 'interbold'; */
+}
+
+.loading {
+  z-index: 1;
+}
+
+.header-footer {
+  bottom: 0;
+  top: auto;
+  padding: 0.29em 0.8em;
+  border-top: 1px solid rgba(150, 150, 150, 0.2);
+  box-shadow: 0px 20px 30px 30px rgba(180, 180, 180, 0.2);
+  justify-content: space-between;
+}
+
+.header-footer-btn {
+  padding: 15px;
+  width: 47%;
+  border-radius: 7px;
+  border: 2px solid #2AFFE2;
+  background-color: transparent;
+}
+
+.header-footer-btn:hover {
+
+  border: 2px solid #2ad4ff;
+  background-color: rgb(14, 238, 223);
+}
+
+.htbtn-fill {
+  background-color: #2AFFE2;
+  font-weight: 700;
+  border: 1px solid rgba(120, 120, 120, 0.2);
+}
+
+.header-for-larges {
+  display: none;
+}
+
+.logo {
+  width: 10vw;
+  height: auto;
+}
+
+.alert {
+  color: rgb(228, 253, 254);
+}
+
+@media screen and (max-width:768px) {
+  .logo {
+    width: 15vw;
+    height: auto;
+  }
+
+}
+
+@media screen and (max-width:1023px) {
+  .logo {
+    width: 18vw;
+    height: auto;
+  }
+
+}
+
+@media (min-width:1044px) {
+  .header-container {
+    justify-content: space-between;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .header-btn {
+    padding: 9.3px;
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid #2abfff;
+    background-color: transparent;
+    margin-left: 1em;
+    font-family: 'nunitobold';
+  }
+
+  /* color: rgba(150,150,250,1); */
+
+  .header-btn:hover {
+    color: rgb(228, 253, 254);
+  }
+
+  .htbtn-fill {
+    background-color: #2AFFE2;
+    font-weight: 700;
+    border: 1px solid rgba(120, 120, 120, 0.9);
+  }
+
+  .htbn-p {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .htbn-p:hover {
+    color: rgb(229, 236, 236);
+  }
+
+  .header-for-larges {
+    display: flex;
+  }
+
+  .header-footer {
+    display: none;
+  }
+}

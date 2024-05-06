@@ -1,0 +1,61 @@
+[
+  {
+    "name": "Alice",
+    "content": "just upgraded to the latest version, and the new features are impressive",
+    "date": "15 min ago"
+  },
+
+  {
+    "name": "Bob",
+    "content": "experienced a minor bug, but the support team was quick to address and fix it",
+    "date": "20 min ago"
+  },
+
+  {
+    "name": "Charlie",
+    "content": "recommended this to my colleagues, and they are equally satisfied with its performance",
+    "date": "25 min ago"
+  },
+
+  {
+    "name": "David",
+    "content": "the user interface is intuitive and easy to navigate, making the overall experience enjoyable",
+    "date": "30 min ago"
+  },
+
+  {
+    "name": "Emma",
+    "content": "integrating it with other tools was seamless, saving a lot of time in the development process",
+    "date": "35 min ago"
+  },
+
+  {
+    "name": "Frank",
+    "content": "noticed a significant improvement in speed and efficiency compared to previous versions",
+    "date": "40 min ago"
+  },
+
+  {
+    "name": "Grace",
+    "content": "exploring the advanced features and finding new ways to optimize my workflow",
+    "date": "45 min ago"
+  },
+
+  {
+    "name": "Henry",
+    "content": "the documentation is comprehensive and easy to follow, aiding in quick adoption",
+    "date": "50 min ago"
+  },
+
+  {
+    "name": "Ivy",
+    "content": "utilizing the API for custom integrations, and it's proving to be highly flexible",
+    "date": "55 min ago"
+  },
+
+  {
+    "name": "Jack",
+    "content": "attended a webinar on maximizing productivity with this tool, gained valuable insights",
+    "date": "1 hour ago"
+  }
+]

@@ -1,0 +1,66 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif; 
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+@font-face {
+  font-family:'nunito' ;
+  font-style: normal;
+  font-weight: 500;
+  src: local('nunito'),local('Nunito-Regular'),url(./assets/Nunito-Regular.ttf)format('truetype');
+}
+@font-face {
+  font-family:'nunitobold' ;
+  font-style: normal;
+  font-weight: 500;
+  src: local('nunitobold'),local('Nunito-Bold'),url(./assets/Nunito-Bold.ttf)format('truetype');
+} */
+
+* {
+  box-sizing: border-box;
+  /* background-color: #f1f1f1; */
+  transition:0.2s ease;
+}
+body {
+  margin: 0;
+  padding: 0;
+  width: calc(100vw - 5%) ;
+  height: 100%;
+  background-image: linear-gradient(45deg, rgb(242, 77, 77),#68fce9,rgb(242,77,77));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+input {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+button,a{
+  cursor:pointer;
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+  backdrop-filter: blur(5px) saturate(91%);
+    -webkit-backdrop-filter: blur(5px) saturate(91%);
+    background-color: rgba(255, 255, 255, 0.22);
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: #2AFFE2;
+}
+
+/*  font-family: 'nunito', sans-serif; */
+/*  font-family: 'nunitobold', sans-serif; */

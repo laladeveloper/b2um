@@ -1,0 +1,66 @@
+
+.sellerpanel-profile {
+ width: 100%;
+ background-color: white;
+ padding-top: 4em;
+ /* text-align: center; */
+ padding-bottom: 9em;
+}
+
+.profile-leadcirlce {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  background-color: dodgerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  /* margin-top: 3em; */
+}
+.profile-lead-inp-subcont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile-lead-inp {
+  margin-top: 1em;
+}
+.profile-lead-inp-title {
+  font-family: 'nunitobold';
+  margin-bottom: 0.5em;
+  color:rgba(10,10,10,0.8)
+}
+.profile-lead-inp-subcont input{ 
+  padding:10px;
+  background-color: #f1f1f1;
+  width: 80%;
+  border-radius: 7px;
+  border-radius: 7px 0px 0px 7px;
+  border: 1px solid rgba(100,100,100,0.4);
+  border-right-color: transparent;
+  outline: none;
+}
+.sojc0 {
+   gap: 1em;
+}
+.sojc0 input {
+   border: 1px solid rgba(100,100,100,0.4); 
+   border-radius: 7px;     
+}
+.profile-lead-inp-subcont input::placeholder{ 
+  font-family: 'nunitobold';
+}
+.profile-lead-inp-subcont button{ 
+  padding:10px;
+  background-color: #2AFFE2;
+  width: 30%;
+  border-radius: 0px 7px 7px 0px;
+  border: 1px solid rgba(100,100,100,0.4);
+  font-family: 'nunito';
+  /* font-size: 14.5px; */
+}

@@ -1,0 +1,36 @@
+{
+ "name" : "Brenda Tchaka",
+ "lastseen" : "2hr",
+ "chats" : [
+   {
+     "whoami" : "you",
+     "isseen" : true,
+     "time" : "1:01 am",
+     "body" : "Hi am intrested in your giftcards"
+   },
+   {
+     "whoami" : "notme",
+     "isseen" : true,
+     "time" : "1:05 am",
+     "body" : "Hello are you talking of he recently posted one?"
+   },
+   {
+     "whoami" : "notme",
+     "isseen" : true,
+     "time" : "13:39 pm",
+     "body" : "if its that,then its still available."
+   },
+   {
+     "whoami" : "you",
+     "isseen" : false,
+     "time" : "14:15 pm",
+     "body" : "I will get back to yo shortly"
+   },
+    {
+     "whoami" : "you",
+     "isseen" : false,
+     "time" : "1:01 am",
+     "body" : "Hello am available to purchase"
+   }
+ ]
+}

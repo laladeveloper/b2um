@@ -1,0 +1,69 @@
+
+.heroswippercontainer{
+   overflow: auto;
+   display: flex;
+   flex-direction: row;
+   gap:1.5em;
+   align-items: center;
+   justify-content: space-between;
+   margin-top: 2.5em;
+   /* flex-wrap: wrap; */
+   padding: 0.5em 1em;
+}
+.heroswippercontainer div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width:auto;
+}
+.heroswippercontainer div button{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 65px;
+   height: 65px;
+   border-radius: 20px;
+   color: white;
+   background-color: rgba(150,150,250,1);
+   border: none;
+   outline: none;
+}
+
+.heroswippercontainer div button #link{
+   display: contents;
+   width: 65px;
+   height: 65px;
+   align-items: center;
+}
+.heroswippercontainer div button #link:hover{
+   width: 75px;
+   height: 75px;
+}
+.heroswippercontainer div span{
+   display:none;
+}
+
+@media (min-width:1000px) {
+.heroswippercontainer{
+   padding: 0.5em 5em;
+}
+.heroswippercontainer div span{
+    display:flex;
+}
+}
+@media (min-width:800px) {
+.heroswippercontainer{
+   padding: 0.5em 5em;
+}
+}
+.heroswippercontainer::-webkit-scrollbar{
+  width: 3px;
+  background-color: transparent;
+}
+.heroswippercontainer::-webkit-scrollbar-thumb{
+  width: 3px;
+  background-color: #2AFFE2;
+}
+/*  */

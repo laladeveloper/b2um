@@ -1,0 +1,14 @@
+/* body {
+background-color: red;
+} */
+
+.seller-panel {
+ /* position: fixed; */
+ background-color: white;
+ width:100vw;
+ height: 100vh;
+ top:0;
+ left:0;
+ right:0;
+ bottom:0;
+}
