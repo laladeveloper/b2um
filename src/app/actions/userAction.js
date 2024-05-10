@@ -1,9 +1,6 @@
 // userActions.js
 
-import { json } from "react-router-dom";
 import {
-  loadUserFail,
-  loadUserRequest,
   loginFail,
   loginRequest,
   loginSuccess,
@@ -12,7 +9,7 @@ import {
   logoutSuccess,
   registerFail,
   registerRequest,
-  registerSuccess,
+  registerSuccess
 } from "../reducers/userReducer";
 // http://localhost:5173/register
 const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
@@ -41,7 +38,8 @@ export const registerUser = (userData) => async (dispatch) => {
      if (data) {
        localStorage.setItem("user", JSON.stringify(data));
      }
-    if (response.ok) {
+     console.log(data)
+    if (data.success) {
       // Dispatch an action to indicate successful registration
       dispatch(registerSuccess(data));
       return data;
@@ -52,6 +50,7 @@ export const registerUser = (userData) => async (dispatch) => {
     }
   } catch (error) {
     // Dispatch an action to indicate registration failure
+    console.log(error);
     dispatch(registerFail(error));
   }
 };
@@ -95,8 +94,6 @@ export const loginUser = (username, password) => async (dispatch) => {
     dispatch(loginFail(failMsg));
   }
 };
-
-
 
 export const logout = () => async (dispatch)=>{
   try {

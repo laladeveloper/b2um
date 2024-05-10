@@ -8,9 +8,9 @@ export default function Footer() {
      <section className="app-afterHeader app-footer-container ">
        <ol>
           <li className=" uppercase text-lg">Authentication</li>
-          <li><Link id="link" to="/auth/login">Login</Link></li>
-          <li><Link id="link" to="/auth/register">Create an account</Link></li>
-          <li><Link id="link" to="/auth/fp">Forgotten password</Link></li>
+          <li><Link id="link" to="/login">Login</Link></li>
+          <li><Link id="link" to="/register">Create an account</Link></li>
+          <li><Link id="link" to="/fp">Forgotten password</Link></li>
         </ol>
        <ol>
           <li className=" uppercase text-lg">Funtionalities</li>

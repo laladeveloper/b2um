@@ -5,34 +5,40 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 // using lazy function
-const Fp = lazy (() => import("./containers/auth/fp.jsx"));
-// import Fp from "./containers/auth/fp.jsx";
-const Login = lazy(() => import("./containers/auth/login.jsx"));
-// import Login from "./containers/auth/login.jsx";
-const Register = lazy(() => import("./containers/auth/register.jsx"));
-// import Register from "./containers/auth/register.jsx";
-const Category = lazy(() => import("./containers/category/Category.jsx"));
-// import Category from "./containers/category/Category.jsx";
-const CategoryB = lazy(() => import("./containers/category/CategoryB.jsx"));
-// import CategoryB from "./containers/category/CategoryB.jsx";
-//const Home = lazy(() => import("./containers/home/Home.jsx"));
-import Home from "./containers/home/Home.jsx";
-const Messages = lazy(() => import("./containers/messages/Messages.jsx"));
-// import Messages from "./containers/messages/Messages.jsx";
-const MessagesMain = lazy(() => import("./containers/messages/MessagesMain.jsx"));
-// import MessagesMain from "./containers/messages/MessagesMain.jsx";
-const Notification = lazy(() => import("./containers/notification/Notification.jsx"));
-// import Notification from "./containers/notification/Notification.jsx";
-const Profile = lazy(() => import("./containers/profile/Profile.jsx"));
-// import Profile from "./containers/profile/Profile.jsx";
-const Seller = lazy(() => import("./containers/seller/Seller.jsx"));
-// import Seller from "./containers/seller/Seller.jsx";
-const SellerRigister = lazy(() => import("./containers/seller/SellerRigister.jsx"));
-// import SellerRigister from "./containers/seller/SellerRigister.jsx";
-const Sellerpanel = lazy(() => import("./containers/sellerpanel/sellerpanel.jsx"));
-// import Sellerpanel from "./containers/sellerpanel/sellerpanel.jsx";
+const Fp = lazy(() => import("./pages/auth/fp.jsx"));
+// import Fp from "./pages/auth/fp.jsx";
+const Login = lazy(() => import("./pages/auth/login.jsx"));
+// import Login from "./pages/auth/login.jsx";
+const Register = lazy(() => import("./pages/auth/register.jsx"));
+// import Register from "./pages/auth/register.jsx";
+const Category = lazy(() => import("./pages/category/Category.jsx"));
+// import Category from "./pages/category/Category.jsx";
+const CategoryB = lazy(() => import("./pages/category/CategoryB.jsx"));
+// import CategoryB from "./pages/category/CategoryB.jsx";
+//const Home = lazy(() => import("./pages/home/Home.jsx"));
+import Home from "./pages/home/Home.jsx";
+const Messages = lazy(() => import("./pages/messages/Messages.jsx"));
+// import Messages from "./pages/messages/Messages.jsx";
+const MessagesMain = lazy(() => import("./pages/messages/MessagesMain.jsx"));
+// import MessagesMain from "./pages/messages/MessagesMain.jsx";
+const Notification = lazy(() =>
+  import("./pages/notification/Notification.jsx")
+);
+// import Notification from "./pages/notification/Notification.jsx";
+const Profile = lazy(() => import("./pages/profile/Profile.jsx"));
+// import Profile from "./pages/profile/Profile.jsx";
+const Seller = lazy(() => import("./pages/seller/Seller.jsx"));
+// import Seller from "./pages/seller/Seller.jsx";
+const SellerRigister = lazy(() => import("./pages/seller/SellerRigister.jsx"));
+// import SellerRigister from "./pages/seller/SellerRigister.jsx";
+const Sellerpanel = lazy(() => import("./pages/sellerpanel/sellerpanel.jsx"));
+// import Sellerpanel from "./pages/sellerpanel/sellerpanel.jsx";
 //const Loader = lazy(() => import("../Loader.jsx"));
 import Loader from "./Loader.jsx";
+// import Admin from "./admin/admin.jsx";
+
+const Admin = lazy(() => import("./admin/admin.jsx"));
+
 function App() {
   return (
     <>
@@ -41,8 +47,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/seller" element={<Seller />} />
-
-            <Route path="/seller/register" element={<SellerRigister />} />
 
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -56,6 +60,7 @@ function App() {
             <Route path="/messages/:id" element={<MessagesMain />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
+              <Route path="/seller/register" element={<SellerRigister />} />
               <Route
                 path="/sellerpanel"
                 element={<Sellerpanel active={"home"} />}
@@ -76,6 +81,14 @@ function App() {
                 path="/sellerpanel/profile"
                 element={<Sellerpanel active={"profile"} />}
               />
+
+              <Route path="/admin" element={<Admin active={"home"} />} />
+              <Route path="/admin/messages" element={<Admin active={"messages"} />} />
+              <Route path="/admin/users" element={<Admin active={"users"} />} />
+              <Route path="/admin/users/:username" element={<Admin active={"user"} />} />
+              <Route path="/admin/create" element={<Admin active={"create"} />} />
+              <Route path="/admin/notification" element={<Admin active={"notification"} />} />
+              <Route path="/admin/profile" element={<Admin active={"profile"} />} />
             </Route>
           </Routes>
         </Suspense>

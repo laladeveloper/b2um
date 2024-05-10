@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const user = JSON.parse(localStorage.getItem('user'))
+const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   user: user ? user.user : null,
   isAuthenticated: user ? user.success : false,
   loading: false,
   success: user ? user.success : null,
+  token: user ? user.token : null,
   failure: null,
   message: null,
 };
@@ -22,12 +23,12 @@ export const userSlice = createSlice({
       };
     },
     registerSuccess: (state, action) => {
-      console.log(`reducer ${action.payload}`);
       console.log(action.payload);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
       state.user = action.payload.user;
       state.success = action.payload.message;
+      console.log(`register success`);
     },
     registerFail: (state, action) => {
       console.log(action);
@@ -48,7 +49,6 @@ export const userSlice = createSlice({
       state.isAuthenticated = action.payload.success;
       state.user = action.payload.user;
       state.success = action.payload.message;
-      
     },
     loginFail: (state, action) => {
       console.log(action.payload);
@@ -56,14 +56,14 @@ export const userSlice = createSlice({
       state.isAuthenticated = action.payload.success;
       state.user = null;
       state.failure = action.payload.message;
-     console.log(action.payload.message); 
+      console.log(action.payload.message);
     },
 
-    logoutRequest:(state)=>{
+    logoutRequest: (state) => {
       state.loading = true;
     },
 
-    logoutSuccess:(state,action)=>{
+    logoutSuccess: (state, action) => {
       state.loading = false;
       state.user = null;
       state.isAuthenticated = false;
@@ -71,11 +71,11 @@ export const userSlice = createSlice({
       state.success = action.payload.message;
       console.log(action.payload.message);
     },
-    logoutFail:(state,action)=>{
+    logoutFail: (state, action) => {
       state.loading = false;
-      state.failure = action.payload.message
+      state.failure = action.payload.message;
     },
-
+ 
     clearMsgs: (state) => {
       state.success = null;
       state.failure = null;

@@ -1,11 +1,14 @@
+import React from "react";
+import "../../assets/styles/home.css";
+import SearchH from "./Search.jsx";
+import { Link } from "react-router-dom";
+import img from "../../assets/gift cards.png";
+import { useSelector } from "react-redux";
 
-import React from 'react'
-import '../../assets/styles/home.css'
-import SearchH from './Search.jsx'
-import {Link} from 'react-router-dom'
-import img from "../../assets/gift cards.png"
-
-export default function Hero({opensearch}) {
+export default function Hero({ opensearch }) {
+  const { user } = useSelector((state) => state.user);
+  // const isSeller = user.role;
+  // console.log(isSeller);
   return (
     <div className="home-hero">
       <SearchH open={opensearch} />
@@ -17,27 +20,30 @@ export default function Hero({opensearch}) {
           </p>
           <div className="home-main-hero-cta-section">
             <button>
-              <Link to="/seller" style={{ textDecoration: "none" }} id="link">
-                Start Selling
-              </Link>
+              {user && user.role == "seller" ? (
+                <Link
+                  to="/sellerpanel"
+                  style={{ textDecoration: "none" }}
+                  id="link"
+                >
+                  Seller Dashboard
+                </Link>
+              ) : (
+                <Link to="/seller" style={{ textDecoration: "none" }} id="link">
+                  Start Selling
+                </Link>
+              )}
             </button>
             <button id="h-m-h-c-s-b2">
-              <Link
-                to="/auth/register"
-                style={{ textDecoration: "none" }}
-                id="link"
-              >
+              <Link to="/register" style={{ textDecoration: "none" }} id="link">
                 Find great deals
               </Link>
             </button>
           </div>
         </div>
-        <img
-          src={img}
-          className="home-hero-poster"
-        />
+        <img src={img} className="home-hero-poster" />
       </div>
     </div>
   );
 }
-// 
+//

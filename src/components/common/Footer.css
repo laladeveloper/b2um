@@ -7,6 +7,8 @@
   background-color: #e1e1e164;
   justify-content: space-evenly;
   margin-top: 5em;
+  width: 100vw;
+  overflow-y: hidden;
 }
 .app-footer-b-container {
   justify-content: center;
