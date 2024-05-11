@@ -42,8 +42,9 @@ export default function Profile() {
         </p>
       </div>
 
-      <div className="profile-content-body grid grid-cols-3 content-center gap-2 mt-10">
-        <div className="profile-meta-body flex justify-center items-center flex-col">
+      <div className="profile-content-body grid gap-4 lg:grid-cols-3 xsm:grid-cols-1 md:grid-cols-2 xsm:ml-10 mt-10">
+      {/* <div className="grid auto-cols-auto mt-10"> */}
+        <div className=" ">
           <div className="profile-meta-cont">
             <span>Available Balance </span>
             <span style={{ fontWeight: 700 }}>{user?.balance} USD</span>
@@ -57,11 +58,11 @@ export default function Profile() {
         <div>
           <div className=" ">
             <h1>
-               First Name :{" "}
+               First Name : {" "}
               <span className=" font-bold">{user?.fname} </span>{" "}
             </h1>
             <h1>
-               last Name :{" "}
+               last Name : {" "}
               <span className=" font-bold">{user?.lname} </span>
             </h1>
           </div>

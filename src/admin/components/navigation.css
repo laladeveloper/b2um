@@ -52,6 +52,7 @@
  width:100%;
  flex-direction: row;
  justify-content: space-between;
+ overflow: auto;
 }
 .nav-tab  {
  flex-direction: column;

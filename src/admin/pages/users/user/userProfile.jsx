@@ -4,20 +4,44 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../../Loader";
 import { SlRefresh } from "react-icons/sl";
-import { getUser } from "../../../../app/actions/adminActions";
+import { deleteUser, getUser } from "../../../../app/actions/adminActions";
+import DeleteConfirm from "./DeleteConfirm";
+import { toast } from "sonner";
+import { clearMsgs } from "../../../../app/reducers/adminReducer";
 
 export default function Profile() {
   const { username } = useParams();
   const dispatch = useDispatch();
-const navigate = useNavigate(); 
-  const { signleUser, loading } = useSelector((state) => state.admin);
+  const navigate = useNavigate();
+  const { signleUser, loading, message } = useSelector((state) => state.admin);
+  // State for managing popup visibility
+  const [showPopup, setShowPopup] = useState(false);
+  // Function to toggle popup visibility
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
+  // Function to handle user deletion
+  const handleDeleteUser = () => {
+    // Perform user deletion logic here
+    // For now, let's just log a message
+    dispatch(deleteUser(username))
+   
+    togglePopup();
+    navigate("/admin/users")
+    setTimeout(() => {
+      toast.success(message)
+    }, 1100);
+
+    // toast.success(`${username} deleted Successfully`)
+  };
   return (
     <>
       {loading ? (
         <Loader />
       ) : !signleUser ? (
         <>
-          <div className="flex justify-center items-center h-screen ">
+          <div className="flex justify-center items-center h-screen w-screen ">
             <h1 className=" w-max ">
               <button
                 onClick={() => dispatch(getUser(username))}
@@ -29,7 +53,15 @@ const navigate = useNavigate();
           </div>
         </>
       ) : (
-        <div className="sellerpanel-profile">
+        <div className="sellerpanel-profile w-screen">
+          {showPopup && (
+            <div className={`delete-confirm ${showPopup ? "visible" : ""}`}>
+              <DeleteConfirm
+                onCancel={togglePopup}
+                onConfirm={handleDeleteUser}
+              />
+            </div>
+          )}
           <div>
             <div
               className="profile-leadcirlce"
@@ -62,7 +94,7 @@ const navigate = useNavigate();
             </p>
           </div>
 
-          <div className="profile-content-body grid grid-cols-3 content-center gap-2 mt-10">
+          <div className="profile-content-body grid gap-4 lg:grid-cols-3 xsm:grid-cols-1 md:grid-cols-2 xsm:ml-10 mt-10">
             <div className="profile-meta-body flex justify-center items-center flex-col">
               <div className="profile-meta-cont">
                 <span>User Balance </span>
@@ -101,10 +133,16 @@ const navigate = useNavigate();
               </h1>
             </div>
           </div>
-          <div className=" flex justify-center items-center">
+          <div className=" flex justify-center items-center flex-col">
+            <div
+              onClick={togglePopup}
+              className="action m-5 cursor-pointer hover:text-red-600 "
+            >
+              <h3>Delete User</h3>
+            </div>
             <button
-            onClick={()=>navigate("/admin/users")}
-              className=" m-5 px-5 py-2 bg-teal-300 rounded-full "
+              onClick={() => navigate("/admin/users")}
+              className=" m-5 px-6 py-3 hover:px-10 font-bold bg-teal-300 rounded-full "
               style={{ marginLeft: "1em" }}
             >
               back

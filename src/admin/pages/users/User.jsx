@@ -18,7 +18,8 @@ const User = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  console.log(allUsers);
+  // console.log(allUsers);
+  console.log(allUsers.length);
   const handleScroll = () => {
     const table = tableRef.current;
     if (table) {
@@ -57,7 +58,7 @@ const User = () => {
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage ;
 
   const sortedUsers = allUsers
     ? allUsers.slice().sort((a, b) => {
@@ -95,14 +96,22 @@ const User = () => {
             <tbody>
               {currentUsers.map((user, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td>
+                    {index + 1 + currentPage * itemsPerPage - itemsPerPage}
+                  </td>
                   <td>{user._id}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>{user.balance} USD </td>
                   <td>
-                    <button onClick={()=>{navigate(`/admin/users/${user.username}`);dispatch(getUser(user.username))}} className="btn">
+                    <button
+                      onClick={() => {
+                        navigate(`/admin/users/${user.username}`);
+                        dispatch(getUser(user.username));
+                      }}
+                      className="btn"
+                    >
                       {<FaRegEdit size={26} />}
                     </button>
                   </td>
@@ -112,28 +121,12 @@ const User = () => {
           </table>
         </div>
         {/* Pagination controls */}
-        <div className="flex justify-around items-center pb-4">
-          <div>
-            Page {currentPage} of {Math.ceil(sortedUsers.length / itemsPerPage)}
+        <div className="flex justify-around items-center px-6 pt-6 pb-28 ">
+          <div className=" text-sm">
+            {indexOfFirstItem +1}-{(indexOfLastItem < allUsers.length ) ?indexOfLastItem :(allUsers.length)  } of {allUsers.length} Users
           </div>
-          <div className="">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
-              className=" cursor-pointer"
-            >
-              <MdSkipPrevious size={30} />
-            </button>
-            <button
-              disabled={indexOfLastItem >= sortedUsers.length}
-              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
-              className=" cursor-pointer"
-            >
-              <MdSkipNext size={30} />
-            </button>
-          </div>
-          <div>
-            <select value={itemsPerPage} onChange={handlePerPageChange}>
+          <div className="flex justify-center items-center flex-col">
+            <select name="options" className=" rounded-full mx-4 px-2 py-1 hover:border-slate-500 border-2" value={itemsPerPage} onChange={handlePerPageChange}>
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={4}>4</option>
@@ -143,8 +136,27 @@ const User = () => {
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
-            <span>Items per page</span>
+            <label htmlFor="options" className=" text-sm">Users per page</label>
           </div>
+          <div className="">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
+              className=" cursor-pointer"
+              >
+              <MdSkipPrevious size={30} />
+            </button>
+            <button
+              disabled={indexOfLastItem >= sortedUsers.length}
+              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+              className=" cursor-pointer"
+              >
+              <MdSkipNext size={30} />
+            </button>
+          </div>
+              <div className=" text-sm ">
+                Page {currentPage} of {Math.ceil(sortedUsers.length / itemsPerPage)}
+              </div>
         </div>
       </div>
     </>

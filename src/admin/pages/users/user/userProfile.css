@@ -1,5 +1,6 @@
 .sellerpanel-profile {
     width: 100%;
+    max-width: max-content;
     background-color: white;
     padding-top: 4em;
     /* text-align: center; */
@@ -71,3 +72,4 @@
     font-family: 'nunito';
     /* font-size: 14.5px; */
 }
+

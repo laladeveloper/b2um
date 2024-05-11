@@ -37,6 +37,19 @@ export const adminSlice = createSlice({
     getUserFailure: (state) => {
       state.loading = false;
     },
+    deleteUserReq: (state) => {
+      state.loading = true;
+    },
+    deleteUserSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+      console.log(action.payload);
+      console.log(action.payload.message);
+    },
+    deleteUserFailure: (state) => {
+      state.loading = false;
+    },
 
     clearMsgs: (state) => {
       state.success = null;
@@ -54,6 +67,9 @@ export const {
   getUserReq,
   getUserSuccess,
   getUserFailure,
+  deleteUserReq,
+  deleteUserSuccess,
+  deleteUserFailure,
   clearMsgs,
 } = adminSlice.actions;
 

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { getUserFailure, getUserReq, getUserSuccess, gettUsersFailure, gettUsersReq, gettUsersSuccess } from "../reducers/adminReducer";
+import { deleteUserFailure, deleteUserReq, deleteUserSuccess, getUserFailure, getUserReq, getUserSuccess, gettUsersFailure, gettUsersReq, gettUsersSuccess } from "../reducers/adminReducer";
 const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
 
 
@@ -30,5 +30,20 @@ export const getUser = (username) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch(getUserFailure());
+  }
+};
+
+export const deleteUser = (username) => async (dispatch) => {
+  try {
+    console.log(username);
+    dispatch(deleteUserReq());
+    const response = await axios.delete(`${baseUrl}/api/user/${username}`);
+
+    const user = response.data;
+    console.log(user);
+    dispatch(deleteUserSuccess(user));
+  } catch (error) {
+    console.log(error);
+    dispatch(deleteUserFailure());
   }
 };

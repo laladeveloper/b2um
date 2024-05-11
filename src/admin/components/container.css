@@ -1,10 +1,16 @@
 
 
-
 @media (min-width:761px) {
 .seller-panel-container { 
   width: 80%; 
   margin-left: 20%;
+  background-color: white;
+ }
+}
+
+@media (max-width:760px) {
+.seller-panel-container { 
+  width: 100%; 
   background-color: white;
  }
 }
