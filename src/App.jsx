@@ -93,6 +93,14 @@ function App() {
                 path="/admin/messages"
                 element={<Admin active={"messages"} />}
               />
+              <Route
+                path="/admin/sellerreqs"
+                element={<Admin active={"sellerReqs"} />}
+              />
+              <Route
+                path="/admin/sellerreqs/:username"
+                element={<Admin active={"sellerReq"} />}
+              />
               <Route path="/admin/users" element={<Admin active={"users"} />} />
               <Route
                 path="/admin/users/:username"

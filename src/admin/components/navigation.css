@@ -19,6 +19,14 @@
   font-family: 'nunito';
 }
 
+.reqnumbers{
+  background-color: rgb(47, 255, 255);
+  max-width: max-content;
+  border-radius: 9999px;
+  top: 0;
+  /* position: absolute; */
+  padding: 0.1rem 0.25rem;
+}
 @media (min-width:761px) {
 .nav {
  border-right: 1px solid #e1e1e1;
@@ -52,6 +60,7 @@
  width:100%;
  flex-direction: row;
  justify-content: space-between;
+ align-items: flex-start;
  overflow: auto;
 }
 .nav-tab  {

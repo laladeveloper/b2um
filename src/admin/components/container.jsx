@@ -7,6 +7,8 @@ import Profile from "../pages/profile/profile.jsx";
 import Create from "../pages/create/create.jsx";
 import User from "../pages/users/User.jsx";
 import UserProfile from "../pages/users/user/userProfile.jsx";
+import SellerRequests from "../pages/sellerReqs/SellerRequests.jsx";
+import SellerProfile from "../pages/sellerReqs/user/sellerProfile.jsx";
 
 export default function Container({ active = "home" }) {
   return (
@@ -15,6 +17,10 @@ export default function Container({ active = "home" }) {
         <Home />
       ) : active === "messages" ? (
         <Messages />
+      ) : active === "sellerReqs" ? (
+        <SellerRequests />
+      ) : active === "sellerReq" ? (
+        <SellerProfile />
       ) : active === "create" ? (
         <Create />
       ) : active === "notification" ? (
@@ -23,9 +29,9 @@ export default function Container({ active = "home" }) {
         <Profile />
       ) : active === "users" ? (
         <User />
-      ) :active === "user" ? (
+      ) : active === "user" ? (
         <UserProfile />
-      ): null}
+      ) : null}
     </div>
   );
 }
