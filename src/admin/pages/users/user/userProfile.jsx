@@ -95,7 +95,7 @@ export default function Profile() {
           </div>
 
           <div className="profile-content-body grid gap-4 lg:grid-cols-3 xsm:grid-cols-1 md:grid-cols-2 xsm:ml-10 mt-10">
-            <div className="profile-meta-body flex justify-center items-center flex-col">
+            <div className="flex justify-center items-center flex-col">
               <div className="profile-meta-cont">
                 <span>User Balance </span>
                 <span style={{ fontWeight: 700 }}>

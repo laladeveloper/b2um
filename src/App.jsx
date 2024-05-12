@@ -35,6 +35,8 @@ const Sellerpanel = lazy(() => import("./pages/sellerpanel/sellerpanel.jsx"));
 // import Sellerpanel from "./pages/sellerpanel/sellerpanel.jsx";
 //const Loader = lazy(() => import("../Loader.jsx"));
 import Loader from "./Loader.jsx";
+import SellerProtect from "./ProtectedRoute/SellerProtect.jsx";
+import AdminProtect from "./ProtectedRoute/AdminProtect.jsx";
 // import Admin from "./admin/admin.jsx";
 
 const Admin = lazy(() => import("./admin/admin.jsx"));
@@ -61,6 +63,8 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller/register" element={<SellerRigister />} />
+            </Route>
+            <Route element={<SellerProtect role="seller" />}>
               <Route
                 path="/sellerpanel"
                 element={<Sellerpanel active={"home"} />}
@@ -81,14 +85,31 @@ function App() {
                 path="/sellerpanel/profile"
                 element={<Sellerpanel active={"profile"} />}
               />
+            </Route>
 
+            <Route element={<AdminProtect role="admin" />}>
               <Route path="/admin" element={<Admin active={"home"} />} />
-              <Route path="/admin/messages" element={<Admin active={"messages"} />} />
+              <Route
+                path="/admin/messages"
+                element={<Admin active={"messages"} />}
+              />
               <Route path="/admin/users" element={<Admin active={"users"} />} />
-              <Route path="/admin/users/:username" element={<Admin active={"user"} />} />
-              <Route path="/admin/create" element={<Admin active={"create"} />} />
-              <Route path="/admin/notification" element={<Admin active={"notification"} />} />
-              <Route path="/admin/profile" element={<Admin active={"profile"} />} />
+              <Route
+                path="/admin/users/:username"
+                element={<Admin active={"user"} />}
+              />
+              <Route
+                path="/admin/create"
+                element={<Admin active={"create"} />}
+              />
+              <Route
+                path="/admin/notification"
+                element={<Admin active={"notification"} />}
+              />
+              <Route
+                path="/admin/profile"
+                element={<Admin active={"profile"} />}
+              />
             </Route>
           </Routes>
         </Suspense>

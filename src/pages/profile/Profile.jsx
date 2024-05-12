@@ -13,8 +13,9 @@ export default function Profile() {
   const [fName, setFName] = useState(user.fname);
   const [lName, setLName] = useState(user.lname);
   const [userName, setUserName] = useState(user.username);
-  
+  console.log(user.isVerifiedSeller);
   const [rule, setRule] = useState(user.role);
+  const [isVerifiedSeller, setIsVerifiedSeller] = useState(user.isVerifiedSeller)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [successMsg, setSuccessMsg] = useState("");
@@ -35,7 +36,7 @@ export default function Profile() {
       <Header active={"profile"} />
       <div style={{ marginTop: "6em" }}>
         <div className="profile-profilepic">
-          {fName.charAt(0).toUpperCase()}{" "}
+          {fName?.charAt(0).toUpperCase()}{" "}
         </div>
       </div>
 
@@ -57,7 +58,7 @@ export default function Profile() {
             </Link>
           </button>
         ) : null}
-        {rule === "seller" ? (
+        {rule === "seller" && isVerifiedSeller ? (
           <button className="profile-sellbtn">
             <Link
               to="/sellerpanel"

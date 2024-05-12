@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ }) => {
+const ProtectedRoute = ({role} ) => {
   const {  isAuthenticated, user } = useSelector((state) => state.user);
 
   return (
     <Fragment>
-      {isAuthenticated ? <Outlet /> : <Navigate to="/login" />}
+      {isAuthenticated  ?   <Outlet /> : <Navigate to="/login" />}
     </Fragment>
   );
 };

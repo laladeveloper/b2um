@@ -13,7 +13,7 @@ export default function Profile() {
     <div className="sellerpanel-profile">
       <div style={{ paddingTop: "2em" }}>
         <div className="profile-leadcirlce">
-          {fName.charAt(0).toUpperCase()}
+          {fName?.charAt(0).toUpperCase()}
         </div>
       </div>
 

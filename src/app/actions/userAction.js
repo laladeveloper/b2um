@@ -18,9 +18,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base UR
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerRequest());
-    console.log(userData);
-    console.log(JSON.stringify(baseUrl));
-    console.log(`${baseUrl}/api/user/new`);
+   
     const response = await fetch(`${baseUrl}/api/user/new`, {
       method: "POST",
       headers: {
@@ -33,8 +31,8 @@ export const registerUser = (userData) => async (dispatch) => {
     });
     
 
-     console.log(response);
     const data = await response.json();
+    console.log(data);
      if (data) {
        localStorage.setItem("user", JSON.stringify(data));
      }
@@ -71,7 +69,8 @@ export const loginUser = (username, password) => async (dispatch) => {
 
    
     const data = await response.json();
-    
+    console.log(JSON.stringify(data));
+    console.log(data);
     if (data.success === true) {
       localStorage.setItem("user", JSON.stringify(data));
       dispatch(loginSuccess(data));
