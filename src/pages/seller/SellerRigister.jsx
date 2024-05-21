@@ -56,9 +56,9 @@ const SellerRigister = () => {
     setSelectedInstantMessengers(updatedMessengers);
   };
 
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-  const [day, setDay] = useState("");
+  const [year, setYear] = useState(allYears[0]);
+  const [month, setMonth] = useState(allmonths[0]);
+  const [day, setDay] = useState(alldays[0]);
   const [whatsapp, setWhatsapp] = useState("");
   const [telegram, setTelegram] = useState("");
   const [cnic, setCnic] = useState("");
@@ -117,7 +117,8 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
         <h1 className="uppercase text-lg font-semibold select-none">
           Personal Information
         </h1>
-        <form action="" onSubmit={formSubmit}>
+        {/* <form action={formSubmit} onSubmit={formSubmit}> */}
+        <form >
           <h4>
             We need your Instant Messengers for B2UM Admin to contact you.
           </h4>
@@ -302,7 +303,8 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
             <button
               type="submit"
               className=" mt-4 bg-teal-500 hover:bg-white text-white hover:text-teal-500 border-2  border-slate-100 hover:border-teal-500 shadow-lg hover:shadow  rounded-full py-3 px-6"
-            >
+            onClick={formSubmit}
+          >
               Submit
             </button>
           </div>

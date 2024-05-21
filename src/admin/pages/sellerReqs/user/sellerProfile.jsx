@@ -8,6 +8,9 @@ import { deleteUser, getUser } from "../../../../app/actions/adminActions";
 import DeleteConfirm from "./DeleteConfirm";
 import { toast } from "sonner";
 import { clearMsgs } from "../../../../app/reducers/adminReducer";
+import ReqConfirm from "./ReqConfirm";
+import axios from "axios";
+import { baseUrl } from "../../../../assets/baseURL";
 
 export default function SellerProfile() {
   const { username } = useParams();
@@ -16,25 +19,39 @@ export default function SellerProfile() {
   const { signleUser, loading, message } = useSelector((state) => state.admin);
   // State for managing popup visibility
   const [showPopup, setShowPopup] = useState(false);
+  const [showCnfrmPopup, setShowCnfrmPopup] = useState(false);
   // Function to toggle popup visibility
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
+  const toggleCnfrmPopup = () => {
+    setShowCnfrmPopup(!showCnfrmPopup);
+  };
 
   // Function to handle user deletion
   const handleDeleteUser = () => {
-    // Perform user deletion logic here
-    // For now, let's just log a message
-    dispatch(deleteUser(username))
-   
-    togglePopup();
-    navigate("/admin/users")
-    setTimeout(() => {
-      toast.success(message)
-    }, 1100);
+    dispatch(deleteUser(username));
 
-    // toast.success(`${username} deleted Successfully`)
+    togglePopup();
+    navigate("/admin/users");
+    toast.success(`${username} deleted Successfully`);
   };
+
+  const acceptReq = async () => {
+    const response = await axios.put(
+      `${baseUrl}/api/user/reqSeller/${signleUser._id}`
+    );
+    console.log(response.data);
+  };
+  // Function to handle user request acceptance
+  const handleAcceptRequest = () => {
+    // dispatch(deleteUser(username));
+    acceptReq();
+    toggleCnfrmPopup();
+    // navigate("/admin/sellerreqs");
+    toast.success(`${username}'s Request Accepted Successfully`);
+  };
+
   return (
     <>
       {loading ? (
@@ -59,6 +76,14 @@ export default function SellerProfile() {
               <DeleteConfirm
                 onCancel={togglePopup}
                 onConfirm={handleDeleteUser}
+              />
+            </div>
+          )}
+          {showCnfrmPopup && (
+            <div className={`delete-confirm ${showPopup ? "visible" : ""}`}>
+              <ReqConfirm
+                onCancel={toggleCnfrmPopup}
+                onConfirm={handleAcceptRequest}
               />
             </div>
           )}
@@ -94,24 +119,28 @@ export default function SellerProfile() {
             </p>
           </div>
 
-          <div className="profile-content-body grid min-w-max gap-4 lg:grid-cols-3 xsm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xsm:ml-10 mt-10">
-            <div className="flex justify-center items-center flex-col">
+          <div className="profile-content-body grid min-w-max gap-4 lg:grid-cols-3 xsm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 pl-10 xsm:ml-10 mt-10">
+            <div className="flex justify-center items-start flex-col">
               <div className="profile-meta-cont">
-                <span>User Balance </span>
-                <span style={{ fontWeight: 700 }}>
-                  {signleUser?.balance} USD
-                </span>
+                <h1>
+                  User Balance{" "}
+                  <span style={{ fontWeight: 700 }}>
+                    {signleUser?.balance} USD
+                  </span>
+                </h1>
               </div>
               <div className="profile-meta-cont ">
-                <span>Points Earned </span>
-                <span style={{ fontWeight: 700 }}>
-                  {signleUser?.points} POINTS
-                </span>
+                <h1>
+                  Points Earned{" "}
+                  <span style={{ fontWeight: 700 }}>
+                    {signleUser?.points} POINTS
+                  </span>
+                </h1>
               </div>
             </div>
 
             <div>
-              <div className="flex justify-center items-center flex-col">
+              <div className="flex justify-center items-start flex-col">
                 <h1>
                   User First Name :{" "}
                   <span className=" font-bold">{signleUser?.fname} </span>{" "}
@@ -123,7 +152,7 @@ export default function SellerProfile() {
               </div>
             </div>
 
-            <div className="flex justify-center items-center flex-col">
+            <div className="flex justify-center items-start flex-col">
               <h1>
                 User Email : <span>{signleUser.email} </span>
               </h1>
@@ -133,7 +162,7 @@ export default function SellerProfile() {
               </h1>
             </div>
 
-            <div className="flex justify-center items-center flex-col">
+            <div className="flex justify-center items-start flex-col">
               <h1>
                 WhatsApp : <span>{signleUser.whatsapp} </span>
               </h1>
@@ -142,7 +171,7 @@ export default function SellerProfile() {
                 Telegram : <span>{signleUser.telegram} </span>
               </h1>
             </div>
-            <div className="flex justify-center items-center flex-col">
+            <div className="flex justify-center items-start flex-col">
               <h1>
                 CNIC : <span>{signleUser.cnic} </span>
               </h1>
@@ -151,10 +180,15 @@ export default function SellerProfile() {
                 Date of Birth : <span>{signleUser.dob} </span>
               </h1>
             </div>
+            <div className="flex justify-center items-start flex-col">
+              <h1>
+                User ID : <span>{signleUser._id} </span>
+              </h1>
+            </div>
           </div>
           <div className=" flex justify-center items-center flex-col">
             <button
-              onClick={() => navigate("/admin/sellerreqs")}
+              onClick={toggleCnfrmPopup}
               className=" m-5 px-6 py-3 hover:px-10 font-bold bg-teal-300 rounded-full "
               style={{ marginLeft: "1em" }}
             >
