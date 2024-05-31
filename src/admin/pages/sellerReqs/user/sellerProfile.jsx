@@ -17,6 +17,7 @@ export default function SellerProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signleUser, loading, message } = useSelector((state) => state.admin);
+  const cnicExist = signleUser.cnicFront;
   // State for managing popup visibility
   const [showPopup, setShowPopup] = useState(false);
   const [showCnfrmPopup, setShowCnfrmPopup] = useState(false);
@@ -30,11 +31,9 @@ export default function SellerProfile() {
 
   // Function to handle user deletion
   const handleDeleteUser = () => {
-    dispatch(deleteUser(username));
-
     togglePopup();
-    navigate("/admin/users");
-    toast.success(`${username} deleted Successfully`);
+    navigate("/admin/sellerreqs");
+    toast.success(`${username}'s Request deleted Successfully`);
   };
 
   const acceptReq = async () => {
@@ -185,6 +184,26 @@ export default function SellerProfile() {
                 User ID : <span>{signleUser._id} </span>
               </h1>
             </div>
+            {cnicExist ? (
+              <>
+                <div className="cnic border-4 rounded-xl m-2 p-2 border-dotted">
+                  <h1>CNIC Front Side</h1>
+                  <img
+                    src={signleUser?.cnicFront?.url}
+                    alt="CNIC Front Side"
+                    className="rounded-xl w-80 h-80 "
+                  />
+                </div>
+                <div className="cnic border-4 rounded-xl m-2 p-2 border-dotted">
+                  <h1>CNIC Front Side</h1>
+                  <img
+                    src={signleUser?.cnicRear?.url}
+                    alt="CNIC Front Side"
+                    className="rounded-xl w-80 h-80 "
+                  />
+                </div>
+              </>
+            ) : null}
           </div>
           <div className=" flex justify-center items-center flex-col">
             <button

@@ -30,7 +30,11 @@ export default function Profile() {
     setSuccessMsg("");
     navigate("/");
   };
-
+  const editProfile = ()=>{
+    setTimeout(() => {
+      toast.success(`Your profile is updated`)
+    }, 2500);
+  }
   return (
     <div>
       <Header active={"profile"} />
@@ -71,11 +75,7 @@ export default function Profile() {
         ) : null}
         {rule === "admin" ? (
           <button className="profile-sellbtn">
-            <Link
-              to="/admin"
-              style={{ textDecoration: "none" }}
-              id="link"
-            >
+            <Link to="/admin" style={{ textDecoration: "none" }} id="link">
               Admin Dashboard
             </Link>
           </button>
@@ -94,7 +94,12 @@ export default function Profile() {
           </div>
         </div>
 
-        <div style={{ marginBottom: "15rem" }}>
+        <div className=" mb-60 flex justify-between">
+          <button className="logout-btn" onClick={editProfile}>
+            <h4 style={{ textDecoration: "none" }} id="link">
+              Edit Profile
+            </h4>
+          </button>
           <button className="logout-btn" onClick={loggedout}>
             <h4 style={{ textDecoration: "none" }} id="link">
               Logout

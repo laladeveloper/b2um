@@ -5,7 +5,7 @@ import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa";
 import "./SellerRigister.css";
 import { MdClose } from "react-icons/md";
 import { toast } from "sonner";
-import axios from "axios"
+import axios from "axios";
 import { baseUrl } from "../../assets/baseURL";
 import { useSelector } from "react-redux";
 
@@ -65,31 +65,72 @@ const SellerRigister = () => {
   const [passport, setPassport] = useState("");
   const [frontID, setFrontID] = useState(null);
   const [rearID, setRearID] = useState(null);
-  const {user, token} = useSelector((state)=>state.user)
+  const [frontIDPreview, setFrontIDPreview] = useState(null);
+  const [rearIDPreview, setRearIDPreview] = useState(null);
+  const { user, token } = useSelector((state) => state.user);
 
   const dob = `${year}-${month}-${day}`;
 
   const onFrontId = (e) => {
-    setFrontID(e.target.files[0]);
-    
+    const file = e.target.files[0];
+    setFrontID(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setFrontIDPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
+
   const onRearId = (e) => {
-    setRearID(e.target.files[0]);
+    const file = e.target.files[0];
+    setRearID(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setRearIDPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
-const sellerData = {whatsapp, telegram, cnic, passport,dob}
+
+
   const formSubmit = async (e) => {
     e.preventDefault();
-    console.log(token);
-     const config = {
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     };
 
-    const response = await axios.put(`${baseUrl}/api/user/regSeller`, sellerData,config);
-    console.log(response);
-    toast.success(`Request Submitted`);
+    if (cnic === "" || dob === "" || !frontID || !rearID) {
+      return toast.error("Please enter all * fields");
+    } else {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const formData = new FormData();
+      formData.append("whatsapp", whatsapp);
+      formData.append("telegram", telegram);
+      formData.append("cnic", cnic);
+      formData.append("passport", passport);
+      formData.append("dob", dob);
+      formData.append("frontID", frontID);
+      formData.append("rearID", rearID);
+
+      try {
+        const response = await axios.put(
+          `${baseUrl}/api/user/regSeller`,
+          formData,
+          config
+        );
+        console.log(response);
+        toast.success("Request Submitted");
+      } catch (error) {
+        console.error(error);
+        toast.error("Something went wrong");
+      }
+    }
   };
+
 
   return (
     <>
@@ -118,7 +159,7 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
           Personal Information
         </h1>
         {/* <form action={formSubmit} onSubmit={formSubmit}> */}
-        <form >
+        <form>
           <h4>
             We need your Instant Messengers for B2UM Admin to contact you.
           </h4>
@@ -237,7 +278,7 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
           </div>
           <div className="idcard">
             <h6 className="block m-6 text-center font-medium text-lg">
-              Add Picture of your identity Card
+              Add Picture's of your identity Card <span className=" text-xl">*</span>
             </h6>
 
             <div className="imagecontainer">
@@ -246,20 +287,30 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
               </label>
 
               {frontID?.name && (
-                <div className="imagetitle flex justify-center items-center ">
-                  {" "}
-                  <h1 className="mx-4">{frontID?.name} is selected</h1>
-                  <MdClose
-                    size={22}
-                    className=" cursor-pointer"
-                    onClick={() => setFrontID(null)}
-                  />
+                <div className="imagetitle flex flex-col justify-center items-center ">
+                  <div className="flex">
+                    <h1 className="mx-4">{frontID?.name} is selected</h1>
+                    <MdClose
+                      size={22}
+                      className=" cursor-pointer"
+                      onClick={() => setFrontID(null)}
+                    />
+                  </div>
+                  <br />
+                  {frontIDPreview && (
+                    <img
+                      src={frontIDPreview}
+                      alt="Front ID Preview"
+                      className=" rounded-xl w-[200px] mt-4 "
+                    />
+                  )}
                 </div>
               )}
 
               <input
                 type="file"
                 id="frontID"
+                name="frontID"
                 onChange={onFrontId}
                 style={{ display: "none" }}
                 accept="image/png, image/gif, image/jpeg"
@@ -272,20 +323,30 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
               </label>
 
               {rearID?.name && (
-                <div className="imagetitle flex justify-center items-center ">
-                  {" "}
-                  <h1 className="mx-4">{rearID?.name} is selected</h1>
-                  <MdClose
-                    size={22}
-                    className=" cursor-pointer "
-                    onClick={() => setRearID(null)}
-                  />
+                <div className="imagetitle flex flex-col justify-center items-center ">
+                  <div className="title flex">
+                    <h1 className="mx-4">{rearID?.name} is selected</h1>
+                    <MdClose
+                      size={22}
+                      className=" cursor-pointer "
+                      onClick={() => setRearID(null)}
+                    />
+                  </div>
+
+                  {rearIDPreview && (
+                    <img
+                      src={rearIDPreview}
+                      alt="Rear ID Preview"
+                      className=" rounded-xl w-[200px] mt-5 "
+                    />
+                  )}
                 </div>
               )}
 
               <input
                 type="file"
                 id="rearID"
+                name="rearID"
                 onChange={onRearId}
                 // onSelect={onRearId}
                 style={{ display: "none" }}
@@ -303,8 +364,8 @@ const sellerData = {whatsapp, telegram, cnic, passport,dob}
             <button
               type="submit"
               className=" mt-4 bg-teal-500 hover:bg-white text-white hover:text-teal-500 border-2  border-slate-100 hover:border-teal-500 shadow-lg hover:shadow  rounded-full py-3 px-6"
-            onClick={formSubmit}
-          >
+              onClick={formSubmit}
+            >
               Submit
             </button>
           </div>
