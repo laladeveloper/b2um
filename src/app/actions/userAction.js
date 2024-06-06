@@ -1,5 +1,5 @@
 // userActions.js
-
+import axios from "axios";
 import {
   loginFail,
   loginRequest,
@@ -9,46 +9,40 @@ import {
   logoutSuccess,
   registerFail,
   registerRequest,
-  registerSuccess
+  registerSuccess,
+  updateUserFail,
+  updateUserRequest,
+  updateUserSuccess,
 } from "../reducers/userReducer";
-// http://localhost:5173/register
 const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
-// console.log(baseUrl);
-// console.log(JSON.stringify(baseUrl));
+
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerRequest());
-   
+
     const response = await fetch(`${baseUrl}/api/user/new`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: userData,
+
       body: JSON.stringify(userData),
-      // mode: "no-cors", // Set request mode to 'no-cors'
-      // body: JSON.stringify(userData),
     });
-    
 
     const data = await response.json();
-    console.log(data);
-     if (data) {
-       localStorage.setItem("user", JSON.stringify(data));
-     }
-     console.log(data)
+
+    if (data) {
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+
     if (data.success) {
-      // Dispatch an action to indicate successful registration
       dispatch(registerSuccess(data));
       return data;
     } else {
-      // Dispatch an action to indicate registration failure
       dispatch(registerFail(data));
       throw new Error(data.message);
     }
   } catch (error) {
-    // Dispatch an action to indicate registration failure
-    console.log(error);
     dispatch(registerFail(error));
   }
 };
@@ -63,11 +57,10 @@ export const loginUser = (username, password) => async (dispatch) => {
       },
       // body:(username, password),
       body: JSON.stringify({ username, password }),
-      
+
       // mode: "no-cors", // Set request mode to 'no-cors'
     });
 
-   
     const data = await response.json();
     console.log(JSON.stringify(data));
     console.log(data);
@@ -94,21 +87,64 @@ export const loginUser = (username, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => async (dispatch)=>{
+export const updateUser =  (token, updateData) => async (dispatch) => {
+  try {
+
+    // console.log(updateData);
+    dispatch(updateUserRequest());
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      
+      },
+    };
+    // make request with axios
+    const response = await axios.put(
+      `${baseUrl}/api/user/me`,
+      updateData,
+      config
+    );
+    
+    // console.log(response);
+    const data = await response.data;
+    // console.log(data);
+
+    if (data) {
+      localStorage.removeItem("user");
+
+      localStorage.setItem("user", JSON.stringify(data));
+    }
+    
+    if (data.success) {
+      localStorage.removeItem("user");
+  
+      localStorage.setItem("user", JSON.stringify(data));
+      dispatch(updateUserSuccess(data));
+      return data;
+    } else {
+      dispatch(updateUserFail(data));
+      throw new Error(data.message);
+    }
+  } catch (error) {
+    dispatch(registerFail(error));
+  }
+};
+
+export const logout = () => async (dispatch) => {
   try {
     dispatch(logoutRequest());
-    const successMsg ={
-      success:true,
-      message:"Logout Successful"
-    }
+    const successMsg = {
+      success: true,
+      message: "Logged out Successful",
+    };
     dispatch(logoutSuccess(successMsg));
     localStorage.removeItem("user");
   } catch (error) {
     console.log(error);
     const failMsg = {
-      success:false,
-      message:"Logout Failed. Please try again later"
-    }
-    dispatch(logoutFail(failMsg))
+      success: false,
+      message: "Logout Failed. Please try again later",
+    };
+    dispatch(logoutFail(failMsg));
   }
-}
+};

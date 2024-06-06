@@ -74,7 +74,28 @@ export const userSlice = createSlice({
       state.loading = false;
       state.failure = action.payload.message;
     },
- 
+
+    updateUserRequest: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    updateUserSuccess: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = action.payload.success;
+      state.user = action.payload.user;
+      state.success = action.payload.message;
+    },
+    updateUserFail: (state, action) => {
+      console.log(action.payload);
+      return {
+        ...state,
+        loading: false,
+        failure:action.payload.message
+      }
+      
+    },
     clearMsgs: (state) => {
       state.success = null;
       state.failure = null;
@@ -94,9 +115,9 @@ export const {
   logoutRequest,
   logoutSuccess,
   logoutFail,
-  loadUserRequest,
-  loadUserSuccess,
-  loadUserFail,
+  updateUserRequest,
+  updateUserSuccess,
+  updateUserFail,
   clearMsgs,
 } = userSlice.actions;
 

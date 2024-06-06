@@ -4,10 +4,10 @@
 }
 
 .userTable {
-    margin: 1rem;
+    /* margin: 1rem; */
     border: 1px solid #d4d3d3f6;
     border-radius: 1rem;
-    padding: 1rem;
+    /* padding: 1rem; */
 }
 
 
@@ -18,7 +18,7 @@ table {
 
 th,
 td {
-    padding: 8px;
+    /* padding:0 8px 8px 8px; */
     text-align: left;
     vertical-align: middle;
 }
@@ -28,8 +28,13 @@ th {
     font-weight: bold;
     color: #0000009e;
     font-size: 1.1rem;
-    padding: 2rem 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 1rem 1rem;
     cursor: pointer;
+    user-select: none;
+    border-right: dotted 2px #d4d3d3f6;
+    /* background-color: aqua; */
 }
 
 tbody {
@@ -53,6 +58,7 @@ td:last-child {
 
 tr {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.093);
+    gap: 1rem;
 }
 
 img {
@@ -85,4 +91,12 @@ img {
 .btn:hover {
     opacity: 0.6;
 
+}
+
+
+
+/* Additional styling for the sort icons */
+th .sort-icon {
+    margin-left: 5px;
+    vertical-align: middle;
 }

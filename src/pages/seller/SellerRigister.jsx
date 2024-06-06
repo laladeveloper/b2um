@@ -68,7 +68,7 @@ const SellerRigister = () => {
   const [frontIDPreview, setFrontIDPreview] = useState(null);
   const [rearIDPreview, setRearIDPreview] = useState(null);
   const { user, token } = useSelector((state) => state.user);
-
+  const userID = user?._id;
   const dob = `${year}-${month}-${day}`;
 
   const onFrontId = (e) => {
@@ -93,16 +93,20 @@ const SellerRigister = () => {
     reader.readAsDataURL(file);
   };
 
-
   const formSubmit = async (e) => {
     e.preventDefault();
 
     if (cnic === "" || dob === "" || !frontID || !rearID) {
       return toast.error("Please enter all * fields");
     } else {
+      // const config = {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // };
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       };
@@ -117,20 +121,16 @@ const SellerRigister = () => {
       formData.append("rearID", rearID);
 
       try {
-        const response = await axios.put(
-          `${baseUrl}/api/user/regSeller`,
-          formData,
-          config
-        );
+        const response = await axios
+          .put(`${baseUrl}/api/user/regSeller/${userID}`, formData, config)
+          .then(toast.success("Request Submitted"))
+          .catch(toast.error("Something went wrong"))
         console.log(response);
-        toast.success("Request Submitted");
       } catch (error) {
         console.error(error);
-        toast.error("Something went wrong");
       }
     }
   };
-
 
   return (
     <>
@@ -278,7 +278,8 @@ const SellerRigister = () => {
           </div>
           <div className="idcard">
             <h6 className="block m-6 text-center font-medium text-lg">
-              Add Picture's of your identity Card <span className=" text-xl">*</span>
+              Add Picture's of your identity Card{" "}
+              <span className=" text-xl">*</span>
             </h6>
 
             <div className="imagecontainer">

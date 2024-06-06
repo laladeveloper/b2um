@@ -4,7 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const SellerProtect = ({ role }) => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  console.log(user.isVerifiedSeller);
+  // console.log(user.isVerifiedSeller);
 
   return (
     <Fragment>

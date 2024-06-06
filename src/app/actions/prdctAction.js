@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createProductFail, createProductReq, createProductSuccess } from "../reducers/productRdcr";
+import { createProductFail, createProductReq, createProductSuccess, getProductReq, getProductSuccess } from "../reducers/productRdcr";
 const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
 
 export const listProduct = (productInfo, token) => async (dispatch) => {
@@ -31,3 +31,23 @@ export const listProduct = (productInfo, token) => async (dispatch) => {
   }
 
 };
+
+
+export const getSellerProducts = (token)=> async (dispatch)=>{
+  try {
+    dispatch(getProductReq());
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response =await axios.get(`${baseUrl}/api/product/all/seller`, config);
+  //  console.log(response);
+   const data = response.data;
+  //  console.log(data);
+   dispatch(getProductSuccess(data));
+   console.log(`products dispatched`);
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -1,34 +1,37 @@
-import "./Reqs.css";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { FaRegEdit } from "react-icons/fa";
+import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   getSellerReqs,
-  getUser,
-  getUsers,
+  getUser
 } from "../../../app/actions/adminActions";
-import { FaRegEdit } from "react-icons/fa";
-import { MdSkipNext } from "react-icons/md";
-import { MdSkipPrevious } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import "./Reqs.css";
 
+import {
+  TbSortAscendingLetters,
+  TbSortDescendingLetters,
+} from "react-icons/tb";
+// TbSortAscendingLetters
 const SellerRequests = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user ,token} = useSelector((state) => state.user);
+  const { user, token } = useSelector((state) => state.user);
   const { sellerReqs } = useSelector((state) => state.admin);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10); // Change this value according to your requirement
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const tableRef = useRef(null);
-//   const token = user.token;
-  console.log(user);
-  console.log(token);
+
+  // console.log(user);
+  // console.log(token);
   useEffect(() => {
     dispatch(getSellerReqs(token));
   }, []);
-  console.log(sellerReqs);
-  console.log(sellerReqs.length);
-  console.log(sellerReqs);
+  // console.log(sellerReqs);
+  // console.log(sellerReqs.length);
+  // console.log(sellerReqs);
   const handleScroll = () => {
     const table = tableRef.current;
     if (table) {
@@ -87,18 +90,84 @@ const SellerRequests = () => {
     <>
       <div className="userSection pt-[12%] pl-0 sm:pt-[15%] md:pt-[15%] xsm:pt-[20%] ">
         <h1 className="flex justify-center items-center py-2 font-semibold ">
-           Requests to be a seller
+          Requests to be a seller
         </h1>
         <div className="overflow-x-scroll userTable">
           <table>
             <thead>
-              <tr>
-                <th onClick={() => sortData("_id")}>Sr #</th>
-                <th onClick={() => sortData("_id")}>ID</th>
-                <th onClick={() => sortData("username")}>User Name</th>
-                <th onClick={() => sortData("email")}>Email</th>
-                <th onClick={() => sortData("role")}>Desired Role</th>
-                <th onClick={() => sortData("balance")}>Balance</th>
+              <tr className="tableheading" >
+                <th>Sr #</th>
+                <th onClick={() => sortData("_id")}>
+                  <p className="flex items-center ">
+                    {" "}
+                    ID
+                    {sortConfig.key === "_id" && (
+                      <span className="sort-icon mr-4">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}
+                  </p>
+                </th>
+                <th onClick={() => sortData("username")}>
+                  <p className="flex items-center">
+                    User Name
+                    {sortConfig.key === "username" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("email")}>
+                  <p className="flex items-center">
+                    Email
+                    {sortConfig.key === "email" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("role")}>
+                  <p className="flex items-center">
+                    Desired Role{" "}
+                    {sortConfig.key === "role" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("balance")}>
+                  <p className="flex items-center">
+                    Balance{" "}
+                    {sortConfig.key === "balance" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
                 <th>Action</th>
               </tr>
             </thead>

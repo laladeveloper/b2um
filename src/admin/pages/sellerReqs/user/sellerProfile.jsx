@@ -17,7 +17,6 @@ export default function SellerProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signleUser, loading, message } = useSelector((state) => state.admin);
-  const cnicExist = signleUser.cnicFront;
   // State for managing popup visibility
   const [showPopup, setShowPopup] = useState(false);
   const [showCnfrmPopup, setShowCnfrmPopup] = useState(false);
@@ -69,7 +68,7 @@ export default function SellerProfile() {
           </div>
         </>
       ) : (
-        <div className="sellerpanel-profile w-screen">
+        <div className="sellerpanel-profile min-w-screen w-max overflow-auto ">
           {showPopup && (
             <div className={`delete-confirm ${showPopup ? "visible" : ""}`}>
               <DeleteConfirm
@@ -118,7 +117,7 @@ export default function SellerProfile() {
             </p>
           </div>
 
-          <div className="profile-content-body grid min-w-max gap-4 lg:grid-cols-3 xsm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 pl-10 xsm:ml-10 mt-10">
+          <div className="profile-content-body scroll-auto grid min-w-max gap-4 lg:grid-cols-3 xsm:grid-cols-1 sm:grid-cols-2 md:grid-cols-2 pl-10 xsm:ml-10 mt-10 pr-10">
             <div className="flex justify-center items-start flex-col">
               <div className="profile-meta-cont">
                 <h1>
@@ -184,7 +183,7 @@ export default function SellerProfile() {
                 User ID : <span>{signleUser._id} </span>
               </h1>
             </div>
-            {cnicExist ? (
+            {signleUser?.cnicFront?.url  ? (
               <>
                 <div className="cnic border-4 rounded-xl m-2 p-2 border-dotted">
                   <h1>CNIC Front Side</h1>
@@ -203,7 +202,7 @@ export default function SellerProfile() {
                   />
                 </div>
               </>
-            ) : null}
+            ) : null }
           </div>
           <div className=" flex justify-center items-center flex-col">
             <button

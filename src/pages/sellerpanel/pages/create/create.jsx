@@ -78,9 +78,11 @@ const Create = () => {
   const [stock, SetStock] = useState("");
   const [listingError, setListingError] = useState("");
   const { user, token } = useSelector((state) => state.user);
-  const { message, success, failure } = useSelector((state) => state.product);
-  console.log(message);
-  console.log(failure);
+  const { prdctMessage, prdctSuccess, prdctFailure } = useSelector(
+    (state) => state.product
+  );
+  // console.log(message);
+  // console.log(failure);
   const handlename = (e) => {
     setName(e.target.value);
   };
@@ -118,16 +120,16 @@ const Create = () => {
   };
 
   useEffect(() => {
-    if (success) {
-      toast.success(message);
-    } else if(failure === false) {
+    if (prdctSuccess) {
+      toast.success(prdctMessage);
+    } else if (prdctFailure === false) {
       toast.error(message);
     }
     // toast.error(message);
     setTimeout(() => {
       dispatch(clearProductMsgs());
     }, 2500);
-  }, [message, failure, success]);
+  }, [prdctSuccess, prdctMessage, prdctFailure]);
 
   return (
     <div className="create">

@@ -6,6 +6,10 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdSkipNext } from "react-icons/md";
 import { MdSkipPrevious } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import {
+  TbSortAscendingLetters,
+  TbSortDescendingLetters,
+} from "react-icons/tb";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -58,7 +62,7 @@ const User = () => {
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage ;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const sortedUsers = allUsers
     ? allUsers.slice().sort((a, b) => {
@@ -82,14 +86,80 @@ const User = () => {
         </h1>
         <div className="overflow-x-scroll userTable">
           <table>
-            <thead>
+            <thead className="tableheading">
               <tr>
-                <th onClick={() => sortData("_id")}>Sr #</th>
-                <th onClick={() => sortData("_id")}>ID</th>
-                <th onClick={() => sortData("username")}>User Name</th>
-                <th onClick={() => sortData("email")}>Email</th>
-                <th onClick={() => sortData("role")}>Role</th>
-                <th onClick={() => sortData("balance")}>Balance</th>
+                <th>Sr #</th>
+                <th onClick={() => sortData("_id")}>
+                  <p className="flex items-center ">
+                    {" "}
+                    ID
+                    {sortConfig.key === "_id" && (
+                      <span className="sort-icon mr-4">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}
+                  </p>
+                </th>
+                <th onClick={() => sortData("username")}>
+                  <p className="flex items-center">
+                    User Name
+                    {sortConfig.key === "username" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("email")}>
+                  <p className="flex items-center">
+                    Email
+                    {sortConfig.key === "email" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("role")}>
+                  <p className="flex items-center">
+                    Desired Role{" "}
+                    {sortConfig.key === "role" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
+                <th onClick={() => sortData("balance")}>
+                  <p className="flex items-center">
+                    Balance{" "}
+                    {sortConfig.key === "balance" && (
+                      <span className="sort-icon">
+                        {sortConfig.direction === "asc" ? (
+                          <TbSortAscendingLetters />
+                        ) : (
+                          <TbSortDescendingLetters />
+                        )}
+                      </span>
+                    )}{" "}
+                  </p>
+                </th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -123,10 +193,19 @@ const User = () => {
         {/* Pagination controls */}
         <div className="flex justify-around items-center px-6 pt-6 pb-28 ">
           <div className=" text-sm">
-            {indexOfFirstItem +1}-{(indexOfLastItem < allUsers.length ) ?indexOfLastItem :(allUsers.length)  } of {allUsers.length} Users
+            {indexOfFirstItem + 1}-
+            {indexOfLastItem < allUsers.length
+              ? indexOfLastItem
+              : allUsers.length}{" "}
+            of {allUsers.length} Users
           </div>
           <div className="flex justify-center items-center flex-col">
-            <select name="options" className=" rounded-full mx-4 px-2 py-1 hover:border-slate-500 border-2" value={itemsPerPage} onChange={handlePerPageChange}>
+            <select
+              name="options"
+              className=" rounded-full mx-4 px-2 py-1 hover:border-slate-500 border-2"
+              value={itemsPerPage}
+              onChange={handlePerPageChange}
+            >
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={4}>4</option>
@@ -136,27 +215,29 @@ const User = () => {
               <option value={50}>50</option>
               <option value={100}>100</option>
             </select>
-            <label htmlFor="options" className=" text-sm">Users per page</label>
+            <label htmlFor="options" className=" text-sm">
+              Users per page
+            </label>
           </div>
           <div className="">
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prevPage) => prevPage - 1)}
               className=" cursor-pointer"
-              >
+            >
               <MdSkipPrevious size={30} />
             </button>
             <button
               disabled={indexOfLastItem >= sortedUsers.length}
               onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
               className=" cursor-pointer"
-              >
+            >
               <MdSkipNext size={30} />
             </button>
           </div>
-              <div className=" text-sm ">
-                Page {currentPage} of {Math.ceil(sortedUsers.length / itemsPerPage)}
-              </div>
+          <div className=" text-sm ">
+            Page {currentPage} of {Math.ceil(sortedUsers.length / itemsPerPage)}
+          </div>
         </div>
       </div>
     </>
