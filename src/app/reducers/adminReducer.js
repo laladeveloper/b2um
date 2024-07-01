@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   success: null,
   allUsers: [],
+  activeUsers:[],
   signleUser: null,
   sellerReqs:[],
   failure: null,
@@ -33,7 +34,7 @@ export const adminSlice = createSlice({
       state.loading = false;
       state.signleUser = action.payload.user;
       state.success = action.payload.success;
-      console.log(action.payload);
+      // console.log(action.payload);
     },
     getUserFailure: (state) => {
       state.loading = false;
@@ -45,8 +46,7 @@ export const adminSlice = createSlice({
       state.loading = false;
       state.message = action.payload.message;
       state.success = action.payload.success;
-      console.log(action.payload);
-      console.log(action.payload.message);
+      
     },
     deleteUserFailure: (state) => {
       state.loading = false;
@@ -59,9 +59,9 @@ export const adminSlice = createSlice({
       state.message = action.payload.message;
       state.success = action.payload.success;
       state.sellerReqs= action.payload.reqs;
-      console.log(action.payload);
-      console.log(action.payload.message);
-      console.log(action.payload.reqs);
+      // console.log(action.payload);
+      // console.log(action.payload.message);
+      // console.log(action.payload.reqs);
     },
     sellerReqFailure: (state) => {
       state.loading = false;

@@ -52,7 +52,7 @@ export const deleteUser = (username) => async (dispatch) => {
 export const getSellerReqs = (token) => async (dispatch) => {
   try {
     dispatch(sellerReq());
-    console.log(`token in admin actions ${token}`);
+    // console.log(`token in admin actions ${token}`);
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

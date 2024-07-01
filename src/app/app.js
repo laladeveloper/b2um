@@ -2,16 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./reducers/userReducer";
 import productReducer from "./reducers/productRdcr";
 import adminReducer from "./reducers/adminReducer";
+import categoryReducer from "./reducers/categoryReducer";
 
 export const store = configureStore({
   reducer: {
-   user: userReducer,
-   product:productReducer,
-   admin:adminReducer,
+    user: userReducer,
+    product: productReducer,
+    admin: adminReducer,
+    category: categoryReducer,
   },
 });
 
-// persisted store 
+// persisted store
 
 // import { combineReducers, configureStore } from "@reduxjs/toolkit";
 // import { persistReducer } from "redux-persist";
@@ -23,15 +25,12 @@ export const store = configureStore({
 //   storage, // browser local storage by default value
 // };
 
-
 // const rootReducer = combineReducers({
 //   user: userReducer,
 // });
-
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // export const store = configureStore({
 //   reducer: persistedReducer,
 // });
-

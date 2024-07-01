@@ -99,12 +99,7 @@ const SellerRigister = () => {
     if (cnic === "" || dob === "" || !frontID || !rearID) {
       return toast.error("Please enter all * fields");
     } else {
-      // const config = {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // };
+    
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",

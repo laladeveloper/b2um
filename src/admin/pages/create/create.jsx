@@ -1,14 +1,34 @@
-import React, { useEffect, useState } from "react";
-import "./create.css";
-import svg from "../../../assets/Creative thinking-bro.svg";
-import Select from "react-select";
+import React, { Suspense, useEffect, useState } from "react";
+import { renderToStaticMarkup } from "react-dom/server"; // Add this import
+
 import { useDispatch, useSelector } from "react-redux";
 import { listProduct } from "../../../app/actions/prdctAction";
+import svg from "../../../assets/Creative thinking-bro.svg";
+import "./create.css";
 
+import * as FaIcons from "react-icons/fa";
+import * as GiIcons from "react-icons/gi";
+import * as IoIcons from "react-icons/io";
+import * as MdIcons from "react-icons/md";
 import { toast } from "sonner";
 import { clearProductMsgs } from "../../../app/reducers/productRdcr";
-
+import IconSelector from "./IconstSelector";
+import axios from "axios";
+import { baseUrl } from "../../../assets/baseURL";
 const Create = () => {
+  const [title, setTitle] = useState("");
+  const [icon, setIcon] = useState("");
+
+  
+
+  const allIcons = {
+    ...FaIcons,
+    ...MdIcons,
+    ...GiIcons,
+    ...IoIcons,
+  };
+
+  const SelectedIcon = icon ? allIcons[icon] : null;
   const cardtype = [
     { value: "Game Top Up", label: "Game Top Up" },
     { value: "Steam", label: "Steam Gift Card" },
@@ -71,29 +91,16 @@ const Create = () => {
 
   const dispatch = useDispatch();
   // setting values of relative
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [description, SetDescription] = useState("");
-  const [price, SetPrice] = useState("");
-  const [stock, SetStock] = useState("");
-  const [listingError, setListingError] = useState("");
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState("");
   const { user, token } = useSelector((state) => state.user);
   const { message, success, failure } = useSelector((state) => state.product);
-  console.log(message);
-  console.log(failure);
-  const handlename = (e) => {
-    setName(e.target.value);
-  };
-  const handleDesc = (e) => {
-    SetDescription(e.target.value);
-  };
-  const handlecategory = (selectedOption) => {
-    setCategory(selectedOption.value);
-  };
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-
+    setImageFile(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -102,26 +109,66 @@ const Create = () => {
       reader.readAsDataURL(file);
     }
   };
+const handleIconSelect = (iconKey) => {
+  setIcon(iconKey);
+  const IconComponent = allIcons[iconKey];
+  const svgString = renderToStaticMarkup(<IconComponent />);
+  const svgDataUri = `data:image/svg+xml;base64,${btoa(svgString)}`;
+  setImage(svgDataUri);
+  const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
+  const file = new File([svgBlob], `${iconKey}.svg`, { type: "image/svg+xml" });
+  console.log(file);
+  setImageFile(file);
+};
 
-  const productInfo = { name, category, description, price, stock };
-  const createlist = async (e) => {
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("description", description);
+  formData.append("image", imageFile);
+  const categorytInfo = { name, description };
+  const publishCategory = async (e) => {
     e.preventDefault(); // Prevent default form submission
-    if (!name || !description || !price || !category || !stock) {
-      setListingError("Please fill in all required fields ");
+    if (!name || !description) {
+      toast.error("Please fill in all required fields ");
       return;
+    } else {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      toast.info(`${name} Publishing...`);
+      console.log(name, description);
+      try {
+        const response = await axios
+          .post(`${baseUrl}/api/category/new`, formData, config)
+          .then((data) => {
+            console.log(data?.data?.message);
+            toast.success(`${name} Published Successfully`);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error(`Error while ${name} Publishing`);
+          });
+      } catch (error) {
+        console.error(error);
+      }
     }
-    try {
-      dispatch(listProduct(productInfo, token));
-    } catch (error) {
-      // console.error("Listing creation failed:", error);
-      toast.error("Listing creation failed ");
-    }
+
+    // try {
+    //   dispatch(listProduct(categorytInfo, token));
+    // } catch (error) {
+    //   // console.error("Listing creation failed:", error);
+    //   toast.error("Listing creation failed ");
+    // }
   };
 
   useEffect(() => {
     if (success) {
       toast.success(message);
-    } else if(failure === false) {
+    } else if (failure === false) {
       toast.error(message);
     }
     // toast.error(message);
@@ -138,9 +185,8 @@ const Create = () => {
         {user ? user.username.toUpperCase() : null}
       </h1>
 
-      <form onSubmit={createlist} method="post">
+      <form onSubmit={publishCategory}>
         <div className="create-lead-body">
-         
           <div className="profile-lead-inp">
             <div className="profile-lead-inp-subcont sojc0">
               <input
@@ -148,7 +194,7 @@ const Create = () => {
                 name="name"
                 placeholder="Category Name"
                 style={{ width: "100%" }}
-                onChange={handlename}
+                onChange={(e) => setName(e.target.value)}
                 value={name}
               />
             </div>
@@ -160,28 +206,55 @@ const Create = () => {
                 name="description"
                 placeholder="Category Description"
                 style={{ width: "100%" }}
-                onChange={handleDesc}
+                onChange={(e) => SetDescription(e.target.value)}
                 value={description}
               />
             </div>
           </div>
 
-          <div className="image-upload-container">
-            <input type="file" onChange={handleImageChange} accept="image/*" />
-            {image && (
-              <div className="image-preview">
-                <p>Image Preview:</p>
-                <img src={image} alt="Preview" />
-              </div>
+          <div className="image-upload-container ">
+            {image ? (
+              <>
+                <label htmlFor="image">
+                  <div className="image-preview">
+                    {/* <p>Image Preview:</p> */}
+                    <img src={image} alt="Preview" />
+                  </div>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={handleImageChange}
+                    accept="image/*"
+                  />
+                </label>
+              </>
+            ) : (
+              <>
+                <label htmlFor="image">Please select a cover image</label>
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                />
+              </>
             )}
           </div>
 
-          
+          <p className=" m-2">or</p>
+          <div className="icons">
+            <Suspense fallback="Loading icons">
+              <div>
+                <IconSelector onIconSelect={handleIconSelect} />
+              </div>
+            </Suspense>
+          </div>
           <div>
-            
             <button className="create-footer-btn" style={{ marginLeft: "1em" }}>
               <span style={{ textDecoration: "none" }} id="link">
-                Upload Listing
+                Publish Category
               </span>
             </button>
           </div>

@@ -23,7 +23,8 @@
   margin-top: 2em;
 }
 .create-footer-btn {
-  padding: 10px;
+  padding: 1rem;
+  margin: 1rem;
   border: 1px solid rgba(40,40,40,0.6);
   border-radius:7px;
   font-family: 'nunitobold';
@@ -58,6 +59,11 @@
 
 .image-preview {
   margin-top: 8px;
+}
+
+.image-preview img {
+  width: 100%;
+  /* height: auto; */
 }
 
 

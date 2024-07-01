@@ -22,15 +22,15 @@ export const userSlice = createSlice({
       };
     },
     registerSuccess: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
       state.user = action.payload.user;
       state.success = action.payload.message;
-      console.log(`register success`);
+      // console.log(`register success`);
     },
     registerFail: (state, action) => {
-      console.log(action);
+      // console.log(action);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
       state.user = null;
@@ -50,12 +50,12 @@ export const userSlice = createSlice({
       state.success = action.payload.message;
     },
     loginFail: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
       state.user = null;
       state.failure = action.payload.message;
-      console.log(action.payload.message);
+      // console.log(action.payload.message);
     },
 
     logoutRequest: (state) => {
@@ -68,7 +68,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.message = action.payload.message;
       state.success = action.payload.message;
-      console.log(action.payload.message);
+      // console.log(action.payload.message);
     },
     logoutFail: (state, action) => {
       state.loading = false;
@@ -88,7 +88,7 @@ export const userSlice = createSlice({
       state.success = action.payload.message;
     },
     updateUserFail: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         loading: false,

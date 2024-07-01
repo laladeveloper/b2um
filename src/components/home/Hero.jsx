@@ -28,6 +28,10 @@ export default function Hero({ opensearch }) {
                 >
                   Seller Dashboard
                 </Link>
+              ) : user && user?.role == "admin" ? (
+                <Link to="/admin" style={{ textDecoration: "none" }} id="link">
+                  Admin Dashboard
+                </Link>
               ) : (
                 <Link to="/seller" style={{ textDecoration: "none" }} id="link">
                   Start Selling

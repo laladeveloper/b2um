@@ -52,6 +52,7 @@ export default function Home() {
   const { user, token, message } = useSelector((state) => state.user);
   const { products, feedback } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  console.log(token);
   useEffect(() => {
     dispatch(getSellerProducts(token));
     setTimeout(() => {
