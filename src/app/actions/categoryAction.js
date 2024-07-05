@@ -1,5 +1,10 @@
 import axios from "axios";
-import { getAllCategoriesFailure, getAllCategoriesReq, getAllCategoriesSuccess } from "../reducers/categoryReducer";
+import {
+  getAllCategoriesFailure,
+  getAllCategoriesReq,
+  getAllCategoriesSuccess,
+} from "../reducers/categoryReducer";
+const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
 
 export const getAllCategories = () => async (dispatch) => {
   try {

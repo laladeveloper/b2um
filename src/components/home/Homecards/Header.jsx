@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 export default function Header({title, col}) {
   return (
     <div className="home-main-card-header" style={{ color: col }}>
-      <span id="hideonsmallscreens">hello world</span>
+      {/* <span id="hideonsmallscreens">hello world</span> */}
       <h1>{title}</h1>
       <Link
         to={"trending/" + title}

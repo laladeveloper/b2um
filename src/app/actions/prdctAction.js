@@ -5,7 +5,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base UR
 export const listProduct = (productInfo, token) => async (dispatch) => {
  
   dispatch(createProductReq());
-
+console.log(token);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

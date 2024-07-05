@@ -66,7 +66,7 @@ function Flow1({ continuesignup }) {
       if (!fname || !username || !email || !dob || !password) {
         toast.error("Please fill all the fields");
         setTimeout(() => {
-          SetIsLoading(false)
+          SetIsLoading(false);
         }, 800);
         return;
       }
@@ -157,13 +157,14 @@ function Flow1({ continuesignup }) {
           className="auth-input"
           placeholder="Email address"
         />
+        <label htmlFor="date" className=" m-[8px]">Date of birth</label>
         <input
           onChange={handledob}
           value={dob}
           type="date"
           name="date"
           className="auth-input"
-          placeholder="Date of Birth"
+          id="date"
         />
         <input
           onChange={handlepassword}

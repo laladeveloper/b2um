@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import { clearProductMsgs } from "../../../../app/reducers/productRdcr";
 
 const Create = () => {
+
+
   const cardtype = [
     { value: "Game Top Up", label: "Game Top Up" },
     { value: "Steam", label: "Steam Gift Card" },
@@ -26,16 +28,6 @@ const Create = () => {
     { value: "Dunkin", label: "Dunkin' Gift Card" },
   ];
 
-  const options = [
-    { value: "Game Top Up", label: "Game Top Up" },
-    { value: "Gift Cards", label: "Gift Cards" },
-    { value: "Video Games", label: "Video Games" },
-    { value: "Accounts", label: "Accounts" },
-    { value: "Items", label: "Items" },
-    { value: "Coaching", label: "Coaching" },
-    { value: "Software", label: "Software" },
-    { value: "Coins", label: "Coins" },
-  ];
 
   const countries = [
     { value: "Worldwide", label: "Worldwide" },
@@ -81,8 +73,23 @@ const Create = () => {
   const { prdctMessage, prdctSuccess, prdctFailure } = useSelector(
     (state) => state.product
   );
+  console.log(token);
   // console.log(message);
   // console.log(failure);
+
+  const { allCategories } = useSelector((state) => state.category);
+  const options = allCategories.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
+
+  const findCategoryById = (id) => {
+    return allCategories.find((item) => item._id === id);
+  };
+  
+  const selectedCategory = findCategoryById(category);
+  
+
   const handlename = (e) => {
     setName(e.target.value);
   };
@@ -123,7 +130,7 @@ const Create = () => {
     if (prdctSuccess) {
       toast.success(prdctMessage);
     } else if (prdctFailure === false) {
-      toast.error(message);
+      toast.error(prdctMessage);
     }
     // toast.error(message);
     setTimeout(() => {
@@ -206,13 +213,8 @@ const Create = () => {
           </div>
 
           <div className="image-upload-container">
-            <input type="file" onChange={handleImageChange} accept="image/*" />
-            {image && (
-              <div className="image-preview">
-                <p>Image Preview:</p>
-                <img src={image} alt="Preview" />
-              </div>
-            )}
+            {/* <input type="file" onChange={handleImageChange} accept="image/*" /> */}
+            {selectedCategory && <> <img src={selectedCategory.icon.url} alt="" /> {selectedCategory.name} </> }
           </div>
 
           <div className="profile-lead-inp">
@@ -236,7 +238,7 @@ const Create = () => {
             )}
             <button className="create-footer-btn" style={{ marginLeft: "1em" }}>
               <span style={{ textDecoration: "none" }} id="link">
-                Upload Listing
+                Publish Item
               </span>
             </button>
           </div>
