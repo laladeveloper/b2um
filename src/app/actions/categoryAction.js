@@ -18,7 +18,7 @@ export const getAllCategories = () => async (dispatch) => {
     const response = await axios.get(`${baseUrl}/api/category/all`);
 
     const categories = response.data;
-    console.log(categories);
+    // console.log(categories);
     dispatch(getAllCategoriesSuccess(categories));
   } catch (error) {
     console.log(error);

@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProduct } from "../../../../app/actions/prdctAction";
 import { toast } from "sonner";
 import { clearProductMsgs } from "../../../../app/reducers/productRdcr";
+import { getAllCategories } from "../../../../app/actions/categoryAction";
+import { BiRefresh } from "react-icons/bi";
 
 const Create = () => {
-
-
   const cardtype = [
     { value: "Game Top Up", label: "Game Top Up" },
     { value: "Steam", label: "Steam Gift Card" },
@@ -27,7 +27,6 @@ const Create = () => {
     { value: "BestBuy", label: "Best Buy Gift Card" },
     { value: "Dunkin", label: "Dunkin' Gift Card" },
   ];
-
 
   const countries = [
     { value: "Worldwide", label: "Worldwide" },
@@ -68,7 +67,9 @@ const Create = () => {
   const [description, SetDescription] = useState("");
   const [price, SetPrice] = useState("");
   const [stock, SetStock] = useState("");
-  const [listingError, setListingError] = useState("");
+  const [location, setLocation] = useState("");
+  const [time, setTime] = useState("")
+
   const { user, token } = useSelector((state) => state.user);
   const { prdctMessage, prdctSuccess, prdctFailure } = useSelector(
     (state) => state.product
@@ -86,9 +87,8 @@ const Create = () => {
   const findCategoryById = (id) => {
     return allCategories.find((item) => item._id === id);
   };
-  
+
   const selectedCategory = findCategoryById(category);
-  
 
   const handlename = (e) => {
     setName(e.target.value);
@@ -98,6 +98,9 @@ const Create = () => {
   };
   const handlecategory = (selectedOption) => {
     setCategory(selectedOption.value);
+  };
+  const handlelocation = (selectedOption) => {
+    setLocation(selectedOption.value);
   };
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -111,11 +114,11 @@ const Create = () => {
     }
   };
 
-  const productInfo = { name, category, description, price, stock };
+  const productInfo = { name, category, description, price, stock, location, time };
   const createlist = async (e) => {
     e.preventDefault(); // Prevent default form submission
-    if (!name || !description || !price || !category || !stock) {
-      setListingError("Please fill in all required fields ");
+    if (!name || !description || !price || !category || !stock || !location || !time ) {
+      toast.error("Please fill  all fields ");
       return;
     }
     try {
@@ -125,8 +128,11 @@ const Create = () => {
       toast.error("Listing creation failed ");
     }
   };
-
+  const refresh = () => {
+    dispatch(getAllCategories());
+  };
   useEffect(() => {
+    dispatch(getAllCategories());
     if (prdctSuccess) {
       toast.success(prdctMessage);
     } else if (prdctFailure === false) {
@@ -145,7 +151,17 @@ const Create = () => {
       <h1 className="create-lead-title">
         {user ? user.username.toUpperCase() : null}
       </h1>
-
+      {console.log(allCategories.length == 0)}
+      {allCategories.length == 0 && (
+        <>
+          <button
+            onClick={refresh}
+            className="refresh flex justify-center flex-col items-center w-full text-green-500 mt-2"
+          >
+            <BiRefresh /> <p>Refresh</p>{" "}
+          </button>
+        </>
+      )}
       <form onSubmit={createlist} method="post">
         <div className="create-lead-body">
           <Select
@@ -204,17 +220,23 @@ const Create = () => {
             </div>
           </div>
 
-          <div className="profile-lead-inp">
+          {/* <div className="profile-lead-inp">
             <Select
               options={cardtype}
               styles={customStyles}
               placeholder="Card Type"
             />
-          </div>
+          </div> */}
 
           <div className="image-upload-container">
             {/* <input type="file" onChange={handleImageChange} accept="image/*" /> */}
-            {selectedCategory && <> <img src={selectedCategory.icon.url} alt="" /> {selectedCategory.name} </> }
+            {selectedCategory && (
+              <>
+                {" "}
+                <img src={selectedCategory.icon.url} alt="" />{" "}
+                {selectedCategory.name}{" "}
+              </>
+            )}
           </div>
 
           <div className="profile-lead-inp">
@@ -223,19 +245,25 @@ const Create = () => {
                 <Select
                   options={countries}
                   styles={customStyles}
+                  onChange={handlelocation}
                   placeholder="Can Activate in?"
+                  name="location"
                 />
               </div>
-              <input type="number" placeholder="Delivery Time (Mins)" />
+              <input
+                type="number"
+                name="time"
+                value={time}
+                placeholder="Delivery Time (Mins)"
+                onChange={(e) => {
+                  setTime(e.target.value);
+                }}
+              />
             </div>
           </div>
 
           <div>
-            {listingError && (
-              <p style={{ color: "red", textAlign: "center" }}>
-                {listingError}
-              </p>
-            )}
+           
             <button className="create-footer-btn" style={{ marginLeft: "1em" }}>
               <span style={{ textDecoration: "none" }} id="link">
                 Publish Item

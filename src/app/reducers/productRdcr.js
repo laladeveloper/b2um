@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   product: [],
-  products: [],
+  sellerproducts: [],
+  allproducts: [],
   loading: false,
   prdctSuccess: null,
   prdctFailure: null,
@@ -16,7 +17,7 @@ export const productSlice = createSlice({
     createProductReq: (state) => {
       state.loading = true;
     },
-    createProductSuccess: (state,action) => {
+    createProductSuccess: (state, action) => {
       state.loading = false;
       state.product = action.payload.product;
       state.prdctMessage = action.payload.message;
@@ -30,17 +31,27 @@ export const productSlice = createSlice({
     getProductReq: (state) => {
       state.loading = true;
     },
-    getProductSuccess: (state,action) => {
+    getProductSuccess: (state, action) => {
       state.loading = false;
-      state.products = action.payload.products;
+      state.sellerproducts = action.payload.products;
       state.prdctMessage = action.payload.message;
       state.prdctSuccess = action.payload.success;
-
     },
     getProductFail: (state, action) => {
       state.loading = false;
       state.prdctMessage = action.payload.message;
       state.prdctFailure = action.payload.success;
+    },
+
+    getAllProductsReq: (state) => {
+      state.loading = true;
+    },
+    getAllProductsSuccess: (state, action) => {
+      (state.loading = false), (state.allproducts = action.payload.products);
+    },
+    getAllProductsFail: (state, action) => {
+      state.loading = false;
+      state.prdctMessage = action.payload.message;
     },
     clearProductMsgs: (state) => {
       state.prdctSuccess = null;
@@ -57,6 +68,9 @@ export const {
   getProductReq,
   getProductSuccess,
   getProductFail,
+  getAllProductsReq,
+  getAllProductsSuccess,
+  getAllProductsFail,
   clearProductMsgs,
 } = productSlice.actions;
 
