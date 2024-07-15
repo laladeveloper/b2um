@@ -309,7 +309,7 @@ function Flow2() {
 }
 
 export default function Register() {
-  // const [flow, setFlow] = useState(1);
+  const [flow, setFlow] = useState(1);
   return (
     <div className="authbody">
       <Header hidefooter={true} />

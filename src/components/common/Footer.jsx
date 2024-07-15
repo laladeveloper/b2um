@@ -10,7 +10,7 @@ export default function Footer() {
           <li className=" uppercase text-lg">Authentication</li>
           <li><Link id="link" to="/login">Login</Link></li>
           <li><Link id="link" to="/register">Create an account</Link></li>
-          <li><Link id="link" to="/fp">Forgotten password</Link></li>
+          {/* <li><Link id="link" to="/fp">Forgotten password</Link></li> */}
         </ol>
        <ol>
           <li className=" uppercase text-lg">Funtionalities</li>
@@ -20,9 +20,9 @@ export default function Footer() {
         </ol>
        <ol>
           <li className=" uppercase text-lg">Contact</li>
-          <li><Link id="link" to="mailto:yourmail@gmail.com">youremail@email.com</Link></li>
-          <li><Link id="link" to="https://facebook.com/b2um">B2UM Facebook</Link></li>
-          <li><Link id="link" to="#">+1234567890</Link></li>
+          <li><Link id="link" to="mailto:yourmail@gmail.com">support@b2um.com</Link></li>
+          <li><Link id="link" to="https://facebook.com/b2um">Facebook</Link></li>
+          {/* <li><Link id="link" to="#">+1234567890</Link></li> */}
        </ol>
        <ol>
           <li className=" uppercase text-lg">Refrences</li>

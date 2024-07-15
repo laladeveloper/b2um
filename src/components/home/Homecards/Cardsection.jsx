@@ -66,30 +66,50 @@
 
 // //
 
-
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header.jsx";
 import "../../../assets/styles/home.css";
 import Card from "./Card.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../../app/actions/prdctAction.js";
+import axios from "axios";
 
 function Card1({ data }) {
-const dispatch = useDispatch();
-const { allproducts } = useSelector((state) => state.product);
-useEffect(() => {
-  dispatch(getAllProducts());
-}, []);
+  // console.log(data);
+  const dispatch = useDispatch();
+  // const { allproducts } = useSelector((state) => state.product);
+  const [allproducts, setAllproducts] = useState([]);
+  const id = data?._id;
 
+  useEffect(() => {
+    // dispatch(getAllProducts());
+    axios
+      .get(`http://localhost:4000/api/product/category/${id}`)
+      .then((response) => {
+        // console.log(response.data);
+        setAllproducts(response.data.products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setAllproducts([]);
+      });
+  }, [dispatch, id]);
   return (
     <div className="home-main-card1-body">
       <Header title={data?.name} id={""} col={"white"} />
       <div className="home-main-card1-container">
-        {/* <Card data={allproducts} /> */}
-         {allproducts.map((element, index) => (
-          <Card key={index} data={element} col={"rgba(0,0,0,0.8)"} />
-        ))}
+        {allproducts.length !== 0 ? (
+          allproducts.map((element, index) => (
+            <Card key={index} data={element} col={"rgba(0,0,0,0.8)"} />
+          ))
+        ) : (
+          <>
+            <h3 className="text-slate-200">
+              {" "}
+              There are no listings in this category yet{" "}
+            </h3>
+          </>
+        )}
       </div>
     </div>
   );
@@ -110,7 +130,7 @@ useEffect(() => {
 // }
 
 export default function Cardsection({ data }) {
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data.map((element, index) => {
