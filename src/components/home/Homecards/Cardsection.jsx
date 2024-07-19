@@ -73,6 +73,7 @@ import Card from "./Card.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../../app/actions/prdctAction.js";
 import axios from "axios";
+import {baseUrl} from "../../../assets/baseURL.js"
 
 function Card1({ data }) {
   // console.log(data);
@@ -84,7 +85,7 @@ function Card1({ data }) {
   useEffect(() => {
     // dispatch(getAllProducts());
     axios
-      .get(`http://localhost:4000/api/product/category/${id}`)
+      .get(`${baseUrl}/api/product/category/${id}`)
       .then((response) => {
         // console.log(response.data);
         setAllproducts(response.data.products);
