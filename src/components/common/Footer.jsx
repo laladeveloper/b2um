@@ -27,8 +27,8 @@ export default function Footer() {
        <ol>
           <li className=" uppercase text-lg">Refrences</li>
           <li><Link id="link" to="/">Landing page</Link></li>
-          <li><Link id="link" to="/auth/register">Signin/Signup</Link></li>
-          <li><Link id="link" to="/notification">Listings</Link></li>
+          <li><Link id="link" to="/privacy">Privacy Policy </Link></li>
+          <li><Link id="link" to="/terms">Terms & Conditions</Link></li>
        </ol>
      </section>
   )

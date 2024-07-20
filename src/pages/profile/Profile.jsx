@@ -85,7 +85,7 @@ export default function Profile() {
             </Link>
           </button>
         ) : null}
-        {rule === "seller" && isVerifiedSeller ? (
+        {rule === "seller" ? (
           <button className="profile-sellbtn">
             <Link
               to="/sellerpanel"

@@ -67,7 +67,7 @@ export const getSellerProducts = (token) => async (dispatch) => {
     );
     //  console.log(response);
     const data = response.data;
-    //  console.log(data);
+     console.log(data);
     dispatch(getProductSuccess(data));
     console.log(`products dispatched`);
   } catch (error) {

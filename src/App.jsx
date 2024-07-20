@@ -37,6 +37,8 @@ const Sellerpanel = lazy(() => import("./pages/sellerpanel/sellerpanel.jsx"));
 import Loader from "./Loader.jsx";
 import SellerProtect from "./ProtectedRoute/SellerProtect.jsx";
 import AdminProtect from "./ProtectedRoute/AdminProtect.jsx";
+import Privacy from "./pages/privacy/Privacy.jsx";
+import Terms from "./pages/terms/Terms.jsx";
 // import Admin from "./admin/admin.jsx";
 
 const Admin = lazy(() => import("./admin/admin.jsx"));
@@ -60,6 +62,13 @@ function App() {
             <Route path="/notification" element={<Notification />} />
             <Route path="/messages/" element={<Messages />} />
             <Route path="/messages/:id" element={<MessagesMain />} />
+          
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+          
+          
+          
+          
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller/register" element={<SellerRigister />} />

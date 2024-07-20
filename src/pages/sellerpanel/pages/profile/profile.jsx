@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import './profile.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../../../app/actions/userAction';
+import { logout, updateUser } from '../../../../app/actions/userAction';
 import { toast } from 'sonner';
 
 export default function Profile() {
@@ -30,7 +30,7 @@ export default function Profile() {
     };
     const loggedout = () => {
       dispatch(logout());
-      setSuccessMsg(`Logout Successful`);
+      setSuccessMsg(`Logout Successful `);
       toast.success(successMsg);
       setTimeout(() => {
         dispatch(clearMsgs());
