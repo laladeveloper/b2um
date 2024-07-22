@@ -11,7 +11,7 @@ export default function Header({title, col}) {
       {/* <span id="hideonsmallscreens">hello world</span> */}
       <h1>{title}</h1>
       <Link
-        to={"trending/" + title}
+        to={"all/" + title}
         className="home-main-card-header-btn"
         style={{ color: col, textDecoration: "none" }}
       >

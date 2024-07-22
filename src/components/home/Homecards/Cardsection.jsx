@@ -73,12 +73,8 @@ import Card from "./Card.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../../app/actions/prdctAction.js";
 import axios from "axios";
-<<<<<<< HEAD
-import { baseUrl } from "../../../assets/baseURL.js";
-=======
 import {baseUrl} from "../../../assets/baseURL.js"
 
->>>>>>> 4a4a87d15a79f865d7ca173edf09f52ea214022e
 function Card1({ data }) {
   // console.log(data);
   const dispatch = useDispatch();

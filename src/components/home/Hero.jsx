@@ -22,7 +22,7 @@ export default function Hero({ opensearch }) {
             <button>
               {user && user.role == "seller" ? (
                 <Link
-                  to="/sellerpanel"
+                  to="/seller/dashboard"
                   style={{ textDecoration: "none" }}
                   id="link"
                 >

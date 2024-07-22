@@ -6,6 +6,7 @@ import { TiMessages } from "react-icons/ti";
 import { IoMdCreate } from "react-icons/io";
 import { MdNotificationsNone } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
+import { TfiDropbox } from "react-icons/tfi";
 export default function Navigation({ active = "home" }) {
   const size = 24;
   const stroke = (title) => (active === title ? 1.5 : 1),
@@ -15,30 +16,32 @@ export default function Navigation({ active = "home" }) {
 
   return (
     <div className="nav">
-      <Link to={"/sellerpanel"} className={_class_("home")}>
+      <Link to={"/seller/dashboard"} className={_class_("home")}>
         <RxDashboard size={size} />
         <div className="nav-tab-title">Dashboard</div>
       </Link>
 
-      <Link to={"/sellerpanel/messages"} className={_class_("messages")}>
+      <Link to={"/seller/messages"} className={_class_("messages")}>
         <TiMessages size={size} />
         <div className="nav-tab-title">Messages</div>
       </Link>
 
-      <Link to={"/sellerpanel/create"} className={_class_("create")}>
+      <Link to={"/seller/products"} className={_class_("myproducts")}>
+        <TfiDropbox size={size} />
+        <div className="nav-tab-title">My Listings</div>
+      </Link>
+
+      <Link to={"/seller/create"} className={_class_("create")}>
         <IoMdCreate size={size} />
         <div className="nav-tab-title">Create</div>
       </Link>
 
-      <Link
-        to={"/sellerpanel/notification"}
-        className={_class_("notification")}
-      >
+      <Link to={"/seller/notification"} className={_class_("notification")}>
         <MdNotificationsNone size={size} />
         <div className="nav-tab-title">Notification</div>
       </Link>
 
-      <Link to={"/sellerpanel/profile"} className={_class_("profile")}>
+      <Link to={"/seller/profile"} className={_class_("profile")}>
         <FaRegUser size={size} />
         <div className="nav-tab-title">Profile</div>
       </Link>

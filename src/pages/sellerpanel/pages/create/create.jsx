@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { clearProductMsgs } from "../../../../app/reducers/productRdcr";
 import { getAllCategories } from "../../../../app/actions/categoryAction";
 import { BiRefresh } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
   const cardtype = [
@@ -58,7 +59,7 @@ const Create = () => {
       color: "black",
     }),
   };
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // setting values of relative
   const [image, setImage] = useState("");
@@ -68,7 +69,7 @@ const Create = () => {
   const [price, SetPrice] = useState("");
   const [stock, SetStock] = useState("");
   const [location, setLocation] = useState("");
-  const [time, setTime] = useState("")
+  const [time, setTime] = useState("");
 
   const { user, token } = useSelector((state) => state.user);
   const { prdctMessage, prdctSuccess, prdctFailure } = useSelector(
@@ -114,10 +115,26 @@ const Create = () => {
     }
   };
 
-  const productInfo = { name, category, description, price, stock, location, time };
+  const productInfo = {
+    name,
+    category,
+    description,
+    price,
+    stock,
+    location,
+    time,
+  };
   const createlist = async (e) => {
     e.preventDefault(); // Prevent default form submission
-    if (!name || !description || !price || !category || !stock || !location || !time ) {
+    if (
+      !name ||
+      !description ||
+      !price ||
+      !category ||
+      !stock ||
+      !location ||
+      !time
+    ) {
       toast.error("Please fill  all fields ");
       return;
     }
@@ -135,6 +152,7 @@ const Create = () => {
     dispatch(getAllCategories());
     if (prdctSuccess) {
       toast.success(prdctMessage);
+      navigate("/seller/products");
     } else if (prdctFailure === false) {
       toast.error(prdctMessage);
     }
@@ -151,7 +169,7 @@ const Create = () => {
       <h1 className="create-lead-title">
         {user ? user.username.toUpperCase() : null}
       </h1>
-      {console.log(allCategories.length == 0)}
+      {/* {console.log(allCategories.length == 0)} */}
       {allCategories.length == 0 && (
         <>
           <button
@@ -263,7 +281,6 @@ const Create = () => {
           </div>
 
           <div>
-           
             <button className="create-footer-btn" style={{ marginLeft: "1em" }}>
               <span style={{ textDecoration: "none" }} id="link">
                 Publish Item

@@ -24,8 +24,12 @@
   text-decoration: none;
   /* background-color: #2AFFE2; */
 }
-.category-card-container:hover .category-card-header{
-  color:#2AFFE2;
+/* .category-card-container:hover .category-card-header{
+  color:#d1fff9;
+} */
+.category-card-header:hover {
+  color:#45534f;
+  text-shadow: #13171637 5px 5px 5px;
 }
 
 .category-card-img {
@@ -138,7 +142,12 @@
   border:none;
   outline:none;
 }
-
+#stock{
+  background: transparent;
+  text-align: center;
+  border: none;
+  
+}
 
 /* . */
 @media (min-width:760px) {

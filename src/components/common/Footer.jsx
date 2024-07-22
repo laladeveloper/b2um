@@ -2,6 +2,7 @@
 import React from "react"
 import "./Footer.css"
 import { Link } from "react-router-dom"
+import { BsWhatsapp } from "react-icons/bs"
 
 export default function Footer() {
   return (
@@ -20,9 +21,14 @@ export default function Footer() {
         </ol>
        <ol>
           <li className=" uppercase text-lg">Contact</li>
-          <li><Link id="link" to="mailto:yourmail@gmail.com">support@b2um.com</Link></li>
-          <li><Link id="link" to="https://facebook.com/b2um">Facebook</Link></li>
-          {/* <li><Link id="link" to="#">+1234567890</Link></li> */}
+          <li><Link id="link" to="support@b2um.com">support@b2um.com</Link></li>
+          <li><Link id="link" to="/contact">Contact Us</Link></li>
+          <li >
+            <a className="flex items-center" target="_blank" href="//api.whatsapp.com/send?phone=447360508493&text=Hey B2UM team ,How are you">
+             <BsWhatsapp/><span className="ml-2">  +447360508493</span> 
+            </a>
+         
+        </li>
        </ol>
        <ol>
           <li className=" uppercase text-lg">Refrences</li>

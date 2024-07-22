@@ -88,11 +88,11 @@ export default function Profile() {
         {rule === "seller" ? (
           <button className="profile-sellbtn">
             <Link
-              to="/sellerpanel"
+              to="/seller/dashboard"
               style={{ textDecoration: "none" }}
               id="link"
             >
-              Start Selling
+              Seller Dashboard
             </Link>
           </button>
         ) : null}

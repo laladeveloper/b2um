@@ -34,7 +34,46 @@ function Lists({ data }) {
     </div>
   );
 }
+function Card1({ data }) {
+  // console.log(data);
+  const dispatch = useDispatch();
+  // const { allproducts } = useSelector((state) => state.product);
+  const [allproducts, setAllproducts] = useState([]);
+  const id = data?._id;
 
+  useEffect(() => {
+    // dispatch(getAllProducts());
+    axios
+      .get(`${baseUrl}/api/product/category/${id}`)
+      .then((response) => {
+        // console.log(response.data);
+        setAllproducts(response.data.products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setAllproducts([]);
+      });
+  }, [dispatch, id]);
+  return (
+    <div className="home-main-card1-body">
+      <Header title={data?.name} id={""} col={"white"} />
+      <div className="home-main-card1-container">
+        {allproducts.length !== 0 ? (
+          allproducts.map((element, index) => (
+            <Card key={index} data={element} col={"rgba(0,0,0,0.8)"} />
+          ))
+        ) : (
+          <>
+            <h3 className="text-slate-200">
+              {" "}
+              There are no listings in this category yet{" "}
+            </h3>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
 function Cards({ data }) {
   return (
     <div className="home-main-card2-body">
@@ -50,7 +89,7 @@ function Cards({ data }) {
 
 export default function Home() {
   const { user, token, message } = useSelector((state) => state.user);
-  const { products, feedback } = useSelector((state) => state.product);
+  const { sellerproducts,products, feedback } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   console.log(token);
   useEffect(() => {
@@ -59,7 +98,7 @@ export default function Home() {
       dispatch(clearProductMsgs());
     }, 3000);
   }, []);
-  console.log(products);
+  console.log(sellerproducts); 
   return (
     <div className="home ">
       <div className="banner-lead-home-fp">
@@ -68,7 +107,7 @@ export default function Home() {
         <div className="home-lead-card-fp">
           <div className="home-lead-cardcont">
             <img src={svg1} />
-            <div>Total Products: {products ? products.length : 0}</div>
+            <div>Total Products: {sellerproducts ? sellerproducts.length : 0}</div>
           </div>
           {/*  */}
 
@@ -86,7 +125,7 @@ export default function Home() {
         </div>
       </div>
       {/*  */}
-      <div style={{ marginTop: "3.5em" }}>
+      {/* <div style={{ marginTop: "3.5em" }}>
         <h3
           className="home-feedbacks-header-title"
           style={{ width: "92%", margin: "auto", marginBottom: "1em" }}
@@ -94,11 +133,11 @@ export default function Home() {
           Your items
         </h3>
         <div>
-          {items.map((elem, index) => (
-            <Cards key={index} data={elem} />
+          {sellerproducts.map((elem, index) => (
+            <Card1 key={index} data={elem} />
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div>
         <div className="home-feedbacks-header">

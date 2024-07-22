@@ -39,6 +39,9 @@ import SellerProtect from "./ProtectedRoute/SellerProtect.jsx";
 import AdminProtect from "./ProtectedRoute/AdminProtect.jsx";
 import Privacy from "./pages/privacy/Privacy.jsx";
 import Terms from "./pages/terms/Terms.jsx";
+import Contact from "./pages/contact/Contact.jsx";
+import CategoryName from "./pages/category/CategoryName.jsx";
+import Order from "./pages/order/Order.jsx";
 // import Admin from "./admin/admin.jsx";
 
 const Admin = lazy(() => import("./admin/admin.jsx"));
@@ -56,42 +59,48 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgetpswrd" element={<Fp />} />
 
+            <Route path="/all/:category" element={<CategoryName />} />
             <Route path="/trending/:category" element={<Category />} />
             <Route path="/trending/:cateogry/:id" element={<CategoryB />} />
 
+            <Route path="/order" element={<Order />} />
+
+
             <Route path="/notification" element={<Notification />} />
-            <Route path="/messages/" element={<Messages />} />
+            <Route path="/messages" element={<Messages />} />
             <Route path="/messages/:id" element={<MessagesMain />} />
-          
+
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
-          
-          
-          
-          
+            <Route path="/contact" element={<Contact />} />
+
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller/register" element={<SellerRigister />} />
             </Route>
             <Route element={<SellerProtect role="seller" />}>
               <Route
-                path="/sellerpanel"
+                path="/seller/dashboard"
                 element={<Sellerpanel active={"home"} />}
               />
               <Route
-                path="/sellerpanel/messages"
+                path="/seller/messages"
                 element={<Sellerpanel active={"messages"} />}
               />
               <Route
-                path="/sellerpanel/create"
+                path="/seller/create"
                 element={<Sellerpanel active={"create"} />}
               />
               <Route
-                path="/sellerpanel/notification"
+                path="/seller/notification"
                 element={<Sellerpanel active={"notification"} />}
               />
               <Route
-                path="/sellerpanel/profile"
+                path="/seller/products"
+                element={<Sellerpanel active={"myproducts"} />}
+              />
+              <Route
+                path="/seller/profile"
                 element={<Sellerpanel active={"profile"} />}
               />
             </Route>

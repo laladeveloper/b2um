@@ -5,6 +5,7 @@ import Notification from "../pages/notifications/notification.jsx";
 import Home from "../pages/home/home.jsx";
 import Profile from "../pages/profile/profile.jsx";
 import Create from "../pages/create/create.jsx";
+import Myproducts from "../pages/myproducts/Myproducts.jsx";
 
 export default function Container({ active = "home" }) {
   return (
@@ -17,6 +18,8 @@ export default function Container({ active = "home" }) {
         <Create />
       ) : active === "notification" ? (
         <Notification />
+      ) : active === "myproducts" ? (
+        <Myproducts />
       ) : active === "profile" ? (
         <Profile />
       ) : null}

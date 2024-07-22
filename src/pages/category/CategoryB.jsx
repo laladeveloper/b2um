@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/category/Header";
 import Footer from "../../components/common/Footer";
 import "./Category.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../../assets/baseURL";
+import { toast } from "sonner";
 
 export default function CategoryB() {
   const { id } = useParams();
@@ -13,8 +14,14 @@ export default function CategoryB() {
   const [stock, setStock] = useState(0);
   const [max, setMax] = useState("");
   const [showMax, setShowMax] = useState(false);
-
   const [product, setProduct] = useState([]);
+  
+  const navigate = useNavigate();
+
+  const purchasebtn=()=>{
+    toast.info(`ok`)
+    navigate(`/order`)
+  }
 
   useEffect(() => {
     // dispatch(getAllProducts());
@@ -30,6 +37,25 @@ export default function CategoryB() {
         setProduct([]);
       });
   }, [category]);
+
+
+  const handleInputChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (isNaN(value)) {
+      setStock(0);
+    } else if (value > product[0]?.stock) {
+      setStock(product[0]?.stock);
+      setMax("maximum stock reached");
+      setShowMax(true);
+    } else if (value < 0) {
+      setStock(0);
+    } else {
+      setStock(value);
+      setMax("");
+      setShowMax(false);
+    }
+  };
+
   const minus = () => {
     if (stock > 0) {
       setStock(stock - 1);
@@ -60,7 +86,16 @@ export default function CategoryB() {
             <FaMinus />
           </button>
           {console.log(product)}
-          <h4> {stock} </h4>
+          <h4>
+            <input
+              type="number"
+              name="stock"
+              id="stock"
+              className="focus:ring-0 focus:ring-offset-0"
+              value={stock}
+              onChange={handleInputChange}
+            />
+          </h4>
           <button onClick={plus}>
             <FaPlus />
           </button>
@@ -79,6 +114,7 @@ export default function CategoryB() {
               fontFamily: 700,
               border: "1px solid rgba(10,10,10,0.4)",
             }}
+            onClick={purchasebtn}
           >
             Purchase now
           </button>
@@ -121,11 +157,16 @@ export default function CategoryB() {
             <h3>Seller Information</h3>
             <div className="category-infoholder-info-cont">
               <span className="cihic-t">Seller</span>
-              <span className="cihic-t cihic-t2"> {product[0]?.seller?.username} </span>
+              <span className="cihic-t cihic-t2">
+                {" "}
+                {product[0]?.seller?.username}{" "}
+              </span>
             </div>
             <div className="category-infoholder-info-cont">
               <span className="cihic-t">Seller Level</span>
-              <span className="cihic-t cihic-t2">Level {product[0]?.seller?.points} </span>
+              <span className="cihic-t cihic-t2">
+                Level {product[0]?.seller?.points}{" "}
+              </span>
             </div>
             <div className="category-infoholder-info-cont">
               <span className="cihic-t">Seller About</span>
