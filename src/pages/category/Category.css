@@ -15,7 +15,19 @@
 
 .category-card-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 3em; */
+  /* background-color: red; */
+  /* cursor: pointer; */
+  text-decoration: none;
+  /* background-color: #2AFFE2; */
+}
+
+.clong-card {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   /* margin-bottom: 3em; */
@@ -24,6 +36,7 @@
   text-decoration: none;
   /* background-color: #2AFFE2; */
 }
+
 /* .category-card-container:hover .category-card-header{
   color:#d1fff9;
 } */
@@ -147,6 +160,10 @@
   text-align: center;
   border: none;
   
+}
+
+.clong-card{
+  width: 100%;
 }
 
 /* . */

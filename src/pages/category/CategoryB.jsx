@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/category/Header";
 import Footer from "../../components/common/Footer";
 import "./Category.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -7,6 +6,8 @@ import { FaMinus, FaPlus } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../../assets/baseURL";
 import { toast } from "sonner";
+import CHeader from "../../components/category/Header";
+import Header from "../../components/common/Header";
 
 export default function CategoryB() {
   const { id } = useParams();
@@ -18,11 +19,25 @@ export default function CategoryB() {
   
   const navigate = useNavigate();
 
-  const purchasebtn=()=>{
-    toast.info(`ok`)
-    navigate(`/order`)
-  }
-
+  // const purchasebtn=()=>{
+  //   toast.info(`ok`)
+  //   navigate(`/order`)
+  // }
+  const purchasebtn = () => {
+    if (product[0]) {
+      navigate("/order", {
+        state: {
+          productId: product?._id,
+          productName: id,
+          quantity: stock,
+          price: product[0]?.price || 0,
+        },
+      });
+    } else {
+      toast.error("Product details are not available");
+    }
+  };
+  
   useEffect(() => {
     // dispatch(getAllProducts());
     axios
@@ -75,8 +90,9 @@ export default function CategoryB() {
   };
   return (
     <div>
-      <Header title={id} />
-      <div style={{ marginTop: "6em" }} className="category-body">
+      <Header />
+      <CHeader title={id} />
+      <div style={{ marginTop: "9em" }} className="category-body">
         <div></div>
 
         <img src={product[0]?.category?.icon?.url} className="category-b-img" />

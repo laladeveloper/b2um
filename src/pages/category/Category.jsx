@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/category/Header.jsx";
 import Footer from "../../components/common/Footer.jsx";
 import SearchH from "../../components/category/Search.jsx";
 import data from "../../datasets/categories.json";
@@ -7,7 +6,8 @@ import "./Category.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../../assets/baseURL.js";
-
+import CHeader from "../../components/category/Header.jsx";
+import Header from "../../components/common/Header.jsx"
 function Cards({ data, category }) {
   return (
     <Link
@@ -40,24 +40,32 @@ function Cards({ data, category }) {
 export default function Category() {
   const { category } = useParams();
   const [allproducts, setAllproducts] = useState([]);
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     // dispatch(getAllProducts());
+    // setLoading(/);
     axios
       .get(`${baseUrl}/api/product/name/${category}`)
       .then((response) => {
         // console.log(response.data);
         setAllproducts(response.data.products);
+        setLoading(!loading);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
         setAllproducts([]);
+        setLoading(!loading);
+
       });
   }, [category]);
 
   return (
     <div>
-      <Header title={category} />
-      <div style={{ marginTop: "6em" }} className="category-body">
+      <Header/>
+      <CHeader title={category} />
+      {
+        loading ? <><h1 className="flex justify-center items-center min-h-[80vh] text-5xl">{ console.log(loading)} Loading..</h1> </> :
+        <div style={{ marginTop: "9em" }} className="category-body">
         <SearchH placeholder={"search " + category} />
         <div
           style={{
@@ -67,7 +75,7 @@ export default function Category() {
             marginLeft: "0.5em",
           }}
         >
-          query for {allproducts.length} results
+          query for {allproducts.length} results {console.log(loading)}
         </div>
         {/* cards here */}
         <div className="category-card-body">
@@ -89,6 +97,8 @@ export default function Category() {
           </button>
         </div>
       </div>
+      }
+     
       <Footer />
     </div>
   );

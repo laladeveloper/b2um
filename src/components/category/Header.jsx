@@ -1,18 +1,17 @@
-
-import '../common/Header.css'
+import "../common/Header.css";
 import { FaChevronLeft } from "react-icons/fa6";
 
-export default function Header({title}) {
+export default function CHeader({ title }) {
   let style = {
-  fontSize: '20px',
-  fontWeight: 700,
-  color: 'rgba(0,0,0,0.7)',
-  cursor:'pointer'
-}
+    fontSize: "20px",
+    fontWeight: 700,
+    color: "rgba(0,0,0,0.7)",
+    cursor: "pointer",
+  };
   return (
     <>
       <div
-        className="header-container"
+        className="cheader-container"
         style={{ justifyContent: "space-between", ...style }}
       >
         {/* <Logo /> */}
