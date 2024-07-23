@@ -63,9 +63,6 @@ function App() {
             <Route path="/trending/:category" element={<Category />} />
             <Route path="/trending/:cateogry/:id" element={<CategoryB />} />
 
-            <Route path="/order" element={<Order />} />
-
-
             <Route path="/notification" element={<Notification />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/messages/:id" element={<MessagesMain />} />
@@ -75,6 +72,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             <Route element={<ProtectedRoute />}>
+              <Route path="/order" element={<Order />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller/register" element={<SellerRigister />} />
             </Route>

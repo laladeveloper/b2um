@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
 import "./auth.css";
@@ -18,6 +18,8 @@ export default function Login() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // Add this line
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(null);
@@ -58,9 +60,12 @@ export default function Login() {
     }, 2500);
 
     if (isAuthenticated) {
-      navigate("/");
+      // Redirect to the intended route or home page
+      const from = location.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
     }
-  }, [navigate, isAuthenticated, successMsg, failureMsg]);
+
+  }, [navigate, isAuthenticated, successMsg, failureMsg,location.state]);
 
   return (
     <div className="authbody">

@@ -62,7 +62,7 @@ const Order = () => {
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
             <div className="flex justify-between mb-2">
               <span className="font-medium">Product #:</span>
-              <span>B{orderDetails.productID}</span>
+              <span>{orderDetails.productID}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span className="font-medium">Title:</span>
@@ -83,16 +83,17 @@ const Order = () => {
               </span>
             </div>
           </div>
-          <div className="bg-gray-50 p-6 rounded-lg shadow-md">
+          <div className="bg-gray-50 p-6 rounded-lg shadow-md ">
             <h2 className="text-xl font-semibold mb-4">Payment Options</h2>
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between mb-2 flex-wrap">
               <span className="font-medium">Crypto Address:</span>
               <span
-                className="cryptoaddress cursor-pointer text-blue-500 hover:underline"
+                className="cryptoaddress cursor-pointer text-blue-500 hover:underline overflow-auto"
                 onClick={handleCopyAddress} // Add the onClick event
               >
                 TTtmf4vHrRPkKgeDvQaZDUuvDTZxH5qzNZ
               </span>
+              <span className="text-center text-gray-400">click to copy</span>
             </div>
 
             <div className="flex justify-between mb-2 mt-6">
