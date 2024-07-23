@@ -66,7 +66,7 @@ export default function Category() {
       {/* <CHeader title={category} /> */}
       {
         loading ? <><h1 className="flex justify-center items-center min-h-[80vh] text-5xl">{ console.log(loading)} Loading..</h1> </> :
-        <div style={{ marginTop: "7em" }} className="category-body">
+        <div className="category-body mt-20 xsm:mt-20 sm:mt-24 md:mt-32 lg:mt-36 ">
         <div
             style={{
               display: "flex",

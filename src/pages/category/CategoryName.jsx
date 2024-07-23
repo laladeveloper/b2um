@@ -202,10 +202,14 @@ function Cards({ data, category }) {
   };
 
   return (
-    <div className="clong-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <div className="w-full bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <div className="flex flex-col md:flex-row">
         <div className="seller flex items-center  border-b md:border-b-0 md:border-r border-gray-300 p-4 w-full md:w-1/3">
-          <img src={logo} alt="" className="w-16 grayscale rounded-full" />
+          <img
+            src={sellerAvatar === "undefined" ? logo : sellerAvatar}
+            alt=""
+            className="w-16 grayscale rounded-full"
+          />
           <h2 className="ml-4 text-lg font-medium">{data?.seller?.username}</h2>
         </div>
         <div className="product p-4 border-b md:border-b-0 md:border-r border-gray-300 min-h-max w-full md:w-1/3">
@@ -256,11 +260,11 @@ function Cards({ data, category }) {
             </p>
           </div>
           <div className="price flex flex-col items-center justify-center  w-full">
-            <h1 className="pb-3 text-lg font-bold">
+            <h1 className="pb-3 mx-2 text-lg font-bold">
               ${stock * data?.price} USD
             </h1>
             <button
-              className="px-6 py-2 bg-teal-400 hover:bg-teal-500 text-white rounded-lg transition-colors duration-200"
+              className=" flex flex-nowrap px-6 py-2 bg-teal-400 hover:bg-teal-500 text-white rounded-lg transition-colors duration-200"
               onClick={buynow}
             >
               Buy Now
@@ -309,7 +313,7 @@ export default function CategoryName() {
   //       });
   //     }, 500);
   //   }
-  
+
   //   return () => clearInterval(loadingInterval);
   // }, [loading]);
   useEffect(() => {
@@ -354,7 +358,7 @@ export default function CategoryName() {
       {loading ? (
         <>
           <h1 className="flex justify-center items-center min-h-[80vh] text-5xl">
-             {loadingText}
+            {loadingText}
           </h1>{" "}
         </>
       ) : (

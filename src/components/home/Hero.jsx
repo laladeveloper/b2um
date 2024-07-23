@@ -7,10 +7,10 @@ import { useSelector } from "react-redux";
 
 export default function Hero({ opensearch }) {
   const { user } = useSelector((state) => state.user);
-  // const isSeller = user.role;
+  // const isSeller = user.role; 
   // console.log(isSeller);
   return (
-    <div className="home-hero">
+    <div className="home-hero md:mt-20 lg:mt-40">
       <SearchH open={opensearch} />
       <div className="home-main-hero-section">
         <div>
