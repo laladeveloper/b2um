@@ -8,6 +8,7 @@ import axios from "axios";
 import { baseUrl } from "../../assets/baseURL.js";
 import CHeader from "../../components/category/Header.jsx";
 import Header from "../../components/common/Header.jsx"
+import { FaChevronLeft } from "react-icons/fa";
 function Cards({ data, category }) {
   return (
     <Link
@@ -62,10 +63,22 @@ export default function Category() {
   return (
     <div>
       <Header/>
-      <CHeader title={category} />
+      {/* <CHeader title={category} /> */}
       {
         loading ? <><h1 className="flex justify-center items-center min-h-[80vh] text-5xl">{ console.log(loading)} Loading..</h1> </> :
-        <div style={{ marginTop: "9em" }} className="category-body">
+        <div style={{ marginTop: "7em" }} className="category-body">
+        <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              cursor:"pointer"
+            }}
+            onClick={() => window.history.back()}
+          >
+            <FaChevronLeft />
+            <span className="pl-2 text-lg">{category}</span>
+          </div>
         <SearchH placeholder={"search " + category} />
         <div
           style={{

@@ -1,5 +1,5 @@
 
-import data from '../../assets/b2um copycc copy.png'
+import data from '../../assets/b2um.png'
 import {Link} from 'react-router-dom'
 
 export default function Logo() {

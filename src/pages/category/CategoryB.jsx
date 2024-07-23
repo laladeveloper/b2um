@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../components/common/Footer";
 import "./Category.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { FaChevronLeft, FaMinus, FaPlus } from "react-icons/fa";
 import axios from "axios";
 import { baseUrl } from "../../assets/baseURL";
 import { toast } from "sonner";
@@ -16,7 +16,7 @@ export default function CategoryB() {
   const [max, setMax] = useState("");
   const [showMax, setShowMax] = useState(false);
   const [product, setProduct] = useState([]);
-  
+
   const navigate = useNavigate();
 
   // const purchasebtn=()=>{
@@ -37,7 +37,7 @@ export default function CategoryB() {
       toast.error("Product details are not available");
     }
   };
-  
+
   useEffect(() => {
     // dispatch(getAllProducts());
     axios
@@ -52,7 +52,6 @@ export default function CategoryB() {
         setProduct([]);
       });
   }, [category]);
-
 
   const handleInputChange = (event) => {
     const value = parseInt(event.target.value, 10);
@@ -91,9 +90,22 @@ export default function CategoryB() {
   return (
     <div>
       <Header />
-      <CHeader title={id} />
-      <div style={{ marginTop: "9em" }} className="category-body">
-        <div></div>
+      {/* <CHeader title={id} /> */}
+      <div style={{ marginTop: "7em" }} className="category-body">
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => window.history.back()}
+          >
+            <FaChevronLeft />
+            <span className="pl-2 text-lg">{id}</span>
+          </div>
+        </div>
 
         <img src={product[0]?.category?.icon?.url} className="category-b-img" />
         <h3 style={{ textAlign: "center" }}>{id}</h3>
@@ -101,7 +113,7 @@ export default function CategoryB() {
           <button onClick={minus}>
             <FaMinus />
           </button>
-          {console.log(product)}
+          {/* {console.log(product)} */}
           <h4>
             <input
               type="number"
