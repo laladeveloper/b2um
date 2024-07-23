@@ -59,7 +59,6 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/forgetpswrd" element={<Fp />} />
 
-            <Route path="/all/:category" element={<CategoryName />} />
             <Route path="/trending/:category" element={<Category />} />
             <Route path="/trending/:cateogry/:id" element={<CategoryB />} />
 
@@ -135,6 +134,7 @@ function App() {
                 element={<Admin active={"profile"} />}
               />
             </Route>
+            <Route path="/:category" element={<CategoryName />} />
           </Routes>
         </Suspense>
       </Router>
