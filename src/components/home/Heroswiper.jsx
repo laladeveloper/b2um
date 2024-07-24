@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Heroswiper.css";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
@@ -11,12 +11,24 @@ import { LuUsers, LuUser2 } from "react-icons/lu";
 import { BsDisc } from "react-icons/bs";
 import { getAllCategories } from "../../app/actions/categoryAction";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { baseUrl } from "../../assets/baseURL";
 export default function Heroswiper() {
   const dispatch = useDispatch();
-  const { allCategories } = useSelector((state) => state.category);
-
+  // const { allCategories } = useSelector((state) => state.category);
+  const [allCategories, setAllCategories] = useState([]);
   useEffect(() => {
-    dispatch(getAllCategories());
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/category/products`);
+        // console.log(response.data);
+        setAllCategories(response.data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const size = 30;
@@ -34,7 +46,7 @@ export default function Heroswiper() {
         <span>Game topup</span>
       </div> */}
 
-      {allCategories.map((item) => (
+      {allCategories?.map((item) => (
         <div
           className="sitem"
           key={item._id}
@@ -48,7 +60,7 @@ export default function Heroswiper() {
                 item.name.length * item.description.length
               }, ${item.name.length * item._id.length})`,
             }}
-            to={`/trending/${item.name}`}
+            to={`/${item.name}`}
           >
             <img className="cicon" src={item.icon.url} alt="icon" />
           </Link>

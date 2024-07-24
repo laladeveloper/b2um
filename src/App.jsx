@@ -42,6 +42,7 @@ import Terms from "./pages/terms/Terms.jsx";
 import Contact from "./pages/contact/Contact.jsx";
 import CategoryName from "./pages/category/CategoryName.jsx";
 import Order from "./pages/order/Order.jsx";
+import Checkout from "./pages/pay/Checkout.jsx";
 // import Admin from "./admin/admin.jsx";
 
 const Admin = lazy(() => import("./admin/admin.jsx"));
@@ -74,6 +75,7 @@ function App() {
               <Route path="/order" element={<Order />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/seller/register" element={<SellerRigister />} />
+              <Route path="/pay" element={<Checkout />} />
             </Route>
             <Route element={<SellerProtect role="seller" />}>
               <Route

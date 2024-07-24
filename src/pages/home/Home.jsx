@@ -14,12 +14,13 @@ import { Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../app/actions/prdctAction.js";
 import { getAllCategories } from "../../app/actions/categoryAction.js";
+import axios from "axios";
+import { baseUrl } from "../../assets/baseURL.js";
 
 export default function Home() {
   const dispatch = useDispatch();
-
-  // const { allproducts } = useSelector((state) => state.product);
-  const { allCategories } = useSelector((state) => state.category);
+  const [allCategories, setAllCategories] = useState([])
+  // const { allCategories } = useSelector((state) => state.category);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isinsearch, setisinserch] = useState(false);
@@ -27,8 +28,17 @@ export default function Home() {
   // console.log(allproducts);
   // console.log(allCategories);
   useEffect(() => {
-    // dispatch(getAllProducts());
-    dispatch(getAllCategories());
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/category/products`);
+        // console.log(response.data);
+        setAllCategories(response.data.categories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   return (
@@ -38,6 +48,7 @@ export default function Home() {
       <div className="main">
         <Hero opensearch={() => (setisinserch(true), console.log("working"))} />
         <Heroswiper />
+        {/* {allCategories} */}
         <Cardsection data={allCategories} />
         <About />
         <PaymentMethod />

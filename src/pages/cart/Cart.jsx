@@ -9,22 +9,14 @@ import SearchH from "../../components/category/Search.jsx";
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
 import "./Category.css";
-import { useSelector } from "react-redux";
 
-import { toast } from "sonner";
-function Cards({ data, category, user }) {
+function Cards({ data, category }) {
   const navigate = useNavigate();
   const [stock, setStock] = useState(1);
   const [max, setMax] = useState("");
   const [showMax, setShowMax] = useState(false);
-  const [order, setOrder] = useState({});
-  // console.log(data);
+  console.log(data);
   const sellerAvatar = data.seller?.avatar.url;
-  const categoryID = data?.category._id;
-  const product = data?._id;
-  const seller = data?.seller._id;
-  // console.log(user);
-
   const handleInputChange = (event) => {
     const value = parseInt(event.target.value, 10);
     if (isNaN(value)) {
@@ -60,34 +52,15 @@ function Cards({ data, category, user }) {
     }
   };
 
-  const buynow = async () => {
-    const orderDetails = { product, seller, user };
-    try {
-      const response = await axios.post(
-        `${baseUrl}/api/order/new`,
-        orderDetails
-      );
-      // console.log(response.data);
-      toast.success(response.data?.message);
-      setOrder(response.data.order);
-      navigate("/order", {
-        state: {
-          productId: data?._id,
-          orderId: response.data.order?._id,
-          productName: data?.name,
-          quantity: stock,
-          price: data?.price || 0,
-        },
-      });
-    } catch (error) {
-      console.error("Failed to place order:", error);
-      // setAllproducts([]);
-      // setLoading(false); // Also set loading to false on error
-    }
-
-    // console.log(product);
-    // console.log(categoryID);
-    // console.log(seller);
+  const buynow = () => {
+    navigate("/order", {
+      state: {
+        productId: data?._id,
+        productName: data?.name,
+        quantity: stock,
+        price: data?.price || 0,
+      },
+    });
   };
 
   return (
@@ -167,16 +140,13 @@ function Cards({ data, category, user }) {
     </div>
   );
 }
-export default function CategoryName() {
+export default function Cart() {
   const { category } = useParams();
   const [allproducts, setAllproducts] = useState([]);
   const [loading, setLoading] = useState(allproducts.length > 0 ? false : true);
   const [loadingText, setLoadingText] = useState("Loading.");
 
-  const { user } = useSelector((state) => state.user);
-  // console.log(user);
-
-  useEffect(() => {
+   useEffect(() => {
     // Function to fetch products and manage loading
     const fetchProducts = async () => {
       try {
@@ -207,12 +177,12 @@ export default function CategoryName() {
     }
 
     return () => clearInterval(loadingInterval);
-  }, [category, loading]);
+  }, [category, loading]); 
 
   return (
     <div>
       <Header />
-
+      
       {loading ? (
         <>
           <h1 className="flex justify-center items-center min-h-[80vh] text-5xl">
@@ -242,21 +212,12 @@ export default function CategoryName() {
               marginLeft: "0.5em",
             }}
           >
-            {allproducts.length > 1 ? (
-              <>{allproducts.length} results </>
-            ) : (
-              <> {allproducts.length} result </>
-            )}
+             {allproducts.length  >1 ? <>{allproducts.length } results </> :<> {allproducts.length } result </> } 
           </div>
           {/* cards here */}
           <div className="category-card-body">
             {allproducts.map((element, index) => (
-              <Cards
-                key={index}
-                data={element}
-                category={category}
-                user={user?._id}
-              />
+              <Cards key={index} data={element} category={category} />
             ))}
           </div>
           {/* cards here */}

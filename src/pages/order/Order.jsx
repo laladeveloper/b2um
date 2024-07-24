@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation
 import Header from "../../components/common/Header";
 import Footer from "../../components/common/Footer";
 import { toast } from "sonner";
+import PaymentForm from "./PaymentForm";
+import logo from "../../assets/payment logos/logos.png";
 
 const Order = () => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const { productName, productId, quantity, price } = location.state || {}; // Destructure state
+  const { productName, productId, orderId, quantity, price } =
+    location.state || {}; // Destructure state
 
   const [orderDetails, setOrderDetails] = useState({
+    orderId,
     productID: productId || "B3482238n8424804802",
     productName: productName || "Example Product",
     quantity: quantity || 1,
@@ -45,11 +50,10 @@ const Order = () => {
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    alert("Order placed successfully!");
-  };
+  const paynow = ()=>{
+    toast.info("Add payment details carefully")
+    navigate("/pay")
+  }
 
   return (
     <div className="">
@@ -60,6 +64,10 @@ const Order = () => {
           {/* Order Summary */}
           <div className="bg-gray-50 p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+            <div className="flex justify-between mb-2">
+              <span className="font-medium">Order ID:</span>
+              <span>{orderDetails.orderId}</span>
+            </div>
             <div className="flex justify-between mb-2">
               <span className="font-medium">Product #:</span>
               <span>{orderDetails.productID}</span>
@@ -85,23 +93,15 @@ const Order = () => {
           </div>
           <div className="bg-gray-50 p-6 rounded-lg shadow-md ">
             <h2 className="text-xl font-semibold mb-4">Payment Options</h2>
-            <div className="flex justify-between mb-2 flex-wrap">
-              <span className="font-medium">Crypto Address:</span>
-              <span
-                className="cryptoaddress cursor-pointer text-blue-500 hover:underline overflow-auto"
-                onClick={handleCopyAddress} // Add the onClick event
-              >
-                TTtmf4vHrRPkKgeDvQaZDUuvDTZxH5qzNZ
-              </span>
-              <span className="text-center text-gray-400">click to copy</span>
-            </div>
-
-            <div className="flex justify-between mb-2 mt-6">
-              <span className="font-medium">
-                Contact seller after paying with payment proof
-              </span>
-              <span>or Contact Us</span>
-            </div>
+            <img src={logo} alt="" />
+            <PaymentForm
+              orderDetails={orderDetails}
+              customerInfo={customerInfo}
+            />
+            {/* <h1 onClick={paynow} className="w-full bg-teal-300 py-3 text-center rounded-lg hover:text-gray-50 cursor-pointer">
+              Pay Now
+            </h1> */}
+            {/* Add the PaymentForm component */}
           </div>
         </div>
       </div>
