@@ -61,7 +61,7 @@ function Cards({ data, category, user }) {
   };
 
   const buynow = async () => {
-    const orderDetails = { product, seller, user };
+    const orderDetails = { product, seller, user, quantity:stock };
     try {
       const response = await axios.post(
         `${baseUrl}/api/order/new`,
@@ -81,13 +81,7 @@ function Cards({ data, category, user }) {
       });
     } catch (error) {
       console.error("Failed to place order:", error);
-      // setAllproducts([]);
-      // setLoading(false); // Also set loading to false on error
-    }
-
-    // console.log(product);
-    // console.log(categoryID);
-    // console.log(seller);
+   }
   };
 
   return (

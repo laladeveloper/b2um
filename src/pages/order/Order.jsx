@@ -14,29 +14,12 @@ const Order = () => {
 
   const [orderDetails, setOrderDetails] = useState({
     orderId,
-    productID: productId || "B3482238n8424804802",
-    productName: productName || "Example Product",
-    quantity: quantity || 1,
-    price: price || 29.99,
+    productID: productId ,
+    productName: productName ,
+    quantity: quantity,
+    price: price,
   });
 
-  const [customerInfo, setCustomerInfo] = useState({
-    name: "",
-    email: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setCustomerInfo({
-      ...customerInfo,
-      [name]: value,
-    });
-  };
-  // Add this function in your component
   const handleCopyAddress = () => {
     const cryptoAddress = "TTtmf4vHrRPkKgeDvQaZDUuvDTZxH5qzNZ";
 
@@ -50,10 +33,10 @@ const Order = () => {
     );
   };
 
-  const paynow = ()=>{
-    toast.info("Add payment details carefully")
-    navigate("/pay")
-  }
+  const paynow = () => {
+    toast.info("Add payment details carefully");
+    navigate("/pay");
+  };
 
   return (
     <div className="">
@@ -94,10 +77,7 @@ const Order = () => {
           <div className="bg-gray-50 p-6 rounded-lg shadow-md ">
             <h2 className="text-xl font-semibold mb-4">Payment Options</h2>
             <img src={logo} alt="" />
-            <PaymentForm
-              orderDetails={orderDetails}
-              customerInfo={customerInfo}
-            />
+            <PaymentForm orderDetails={orderDetails} />
             {/* <h1 onClick={paynow} className="w-full bg-teal-300 py-3 text-center rounded-lg hover:text-gray-50 cursor-pointer">
               Pay Now
             </h1> */}

@@ -109,7 +109,7 @@ const PaymentForm = () => {
           disabled={!stripe || isProcessing}
           className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400"
         >
-          {isProcessing ? "Processing…" : "Pay Now"}
+          {isProcessing ? "Processing…" : "Pay"}
         </button>
       </form>
     </div>

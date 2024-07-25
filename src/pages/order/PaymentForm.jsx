@@ -19,14 +19,14 @@ const PaymentForm = () => {
     event.preventDefault();
     setIsProcessing(true);
 
-    const { error, paymentIntent } = await stripe.createPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: window.location.origin,
       },
       redirect: "if_required",
     });
-    toast.success(`Your payment is successful`);
+    toast.success(`Your payment is successfully recieved`);
     setIsProcessing(false);
     if (error) {
       setPaymentError(error.message);
@@ -114,7 +114,7 @@ const PaymentForm = () => {
           disabled={!stripe || isProcessing}
           className="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-gray-400"
         >
-          {isProcessing ? "Processing…" : "Pay Now"}
+          {isProcessing ? "Processing…" : "Pay"}
         </button>
       </form>
     </div>

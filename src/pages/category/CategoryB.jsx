@@ -8,35 +8,21 @@ import { baseUrl } from "../../assets/baseURL";
 import { toast } from "sonner";
 import CHeader from "../../components/category/Header";
 import Header from "../../components/common/Header";
+import { useSelector } from "react-redux";
 
 export default function CategoryB() {
   const { id } = useParams();
   const { category } = useParams();
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState(1);
   const [max, setMax] = useState("");
   const [showMax, setShowMax] = useState(false);
   const [product, setProduct] = useState([]);
+  const [order, setOrder] = useState({});
+  const [price, setPrice] = useState(1);
 
   const navigate = useNavigate();
 
-  // const purchasebtn=()=>{
-  //   toast.info(`ok`)
-  //   navigate(`/order`)
-  // }
-  const purchasebtn = () => {
-    if (product[0]) {
-      navigate("/order", {
-        state: {
-          productId: product?._id,
-          productName: id,
-          quantity: stock,
-          price: product[0]?.price || 0,
-        },
-      });
-    } else {
-      toast.error("Product details are not available");
-    }
-  };
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     // dispatch(getAllProducts());
@@ -45,13 +31,16 @@ export default function CategoryB() {
       .then((response) => {
         // console.log(response.data);
         setProduct(response.data.products);
-        setStock(response.data.products[0].stock);
+        // setStock(response.data.products[0].stock);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
         setProduct([]);
       });
   }, [category]);
+  useEffect(() => {
+    setPrice(product[0]?.price * stock);
+  }, [product, stock]);
 
   const handleInputChange = (event) => {
     const value = parseInt(event.target.value, 10);
@@ -87,6 +76,37 @@ export default function CategoryB() {
       setShowMax(true);
     }
   };
+
+  const buynow = async () => {
+    const orderDetails = {
+      product: product[0]?._id,
+      seller: product[0]?.seller?._id,
+      user: user?._id,
+      quantity: stock,
+      price:price
+    };
+    try {
+      const response = await axios.post(
+        `${baseUrl}/api/order/new`,
+        orderDetails
+      );
+      // console.log(response.data);
+      toast.success(response.data?.message);
+      setOrder(response.data.order);
+      navigate("/order", {
+        state: {
+          productId: product?._id,
+          orderId: response.data.order?._id,
+          productName: product?.name,
+          quantity: stock,
+          price: price ,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to place order:", error);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -142,9 +162,9 @@ export default function CategoryB() {
               fontFamily: 700,
               border: "1px solid rgba(10,10,10,0.4)",
             }}
-            onClick={purchasebtn}
+            onClick={buynow}
           >
-            Purchase now
+            Buy now
           </button>
           <button>
             <Link
@@ -162,7 +182,7 @@ export default function CategoryB() {
             <h3>Product Information</h3>
             <div className="category-infoholder-info-cont">
               <span className="cihic-t">Total Price</span>
-              <span className="cihic-t cihic-t2">${product[0]?.price} usd</span>
+              <span className="cihic-t cihic-t2">${price} usd</span>
             </div>
             <div className="category-infoholder-info-cont">
               <span className="cihic-t">Delivery time</span>
