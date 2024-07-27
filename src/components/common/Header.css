@@ -77,7 +77,7 @@
 }
 
 .logo {
-  width: 10vw;
+  width: 8vw;
   height: auto;
 }
 
@@ -87,7 +87,7 @@
 
 @media screen and (max-width:768px) {
   .logo {
-    width: 15vw;
+    width: 12vw;
     height: auto;
   }
 
@@ -95,7 +95,7 @@
 
 @media screen and (max-width:1023px) {
   .logo {
-    width: 18vw;
+    width: 16vw;
     height: auto;
   }
 

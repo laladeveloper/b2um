@@ -21,7 +21,7 @@ export default function Heroswiper() {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${baseUrl}/api/category/products`);
-        // console.log(response.data);
+        console.log(response.data);
         setAllCategories(response.data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -45,7 +45,7 @@ export default function Heroswiper() {
         </button>
         <span>Game topup</span>
       </div> */}
-
+{console.log(allCategories)}
       {allCategories?.map((item) => (
         <div
           className="sitem"

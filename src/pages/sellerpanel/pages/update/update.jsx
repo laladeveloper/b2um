@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./create.css";
+import "./update.css";
 import svg from "../../../../assets/Creative thinking-bro.svg";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,17 @@ import { toast } from "sonner";
 import { clearProductMsgs } from "../../../../app/reducers/productRdcr";
 import { getAllCategories } from "../../../../app/actions/categoryAction";
 import { BiRefresh } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
-const Create = () => {
+const updateListing = () => {
+
+  const navlocation = useLocation();
+  const {uid} = navlocation.state;
+useEffect(() => {
+ toast.info(uid)
+}, [])
+
+
   const cardtype = [
     { value: "Game Top Up", label: "Game Top Up" },
     { value: "Steam", label: "Steam Gift Card" },
@@ -283,7 +291,7 @@ const Create = () => {
           <div>
             <button className="create-footer-btn" style={{ marginLeft: "1em" }}>
               <span style={{ textDecoration: "none" }} id="link">
-                Publish Item
+               Update
               </span>
             </button>
           </div>
@@ -293,4 +301,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default updateListing;

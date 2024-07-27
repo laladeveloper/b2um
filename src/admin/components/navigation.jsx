@@ -29,6 +29,10 @@ const requests = sellerReqs.length;
         <RxDashboard size={size} />
         <div className="nav-tab-title">Dashboard</div>
       </Link>
+      <Link to={"/admin/orders"} className={_class_("orders")}>
+        <RxDashboard size={size} />
+        <div className="nav-tab-title">Orders</div>
+      </Link>
 
       <Link to={"/admin/messages"} className={_class_("messages")}>
         <TiMessages size={size} />

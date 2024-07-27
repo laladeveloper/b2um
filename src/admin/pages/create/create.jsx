@@ -140,7 +140,7 @@ const handleIconSelect = (iconKey) => {
       };
 
       toast.info(`${name} Publishing...`);
-      console.log(name, description);
+      // console.log(name, description);
       try {
         const response = await axios
           .post(`${baseUrl}/api/category/new`, formData, config)

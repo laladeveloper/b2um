@@ -4,9 +4,10 @@ const initialState = {
   loading: false,
   success: null,
   allUsers: [],
-  activeUsers:[],
+  allOrders: [],
+  activeUsers: [],
   signleUser: null,
-  sellerReqs:[],
+  sellerReqs: [],
   failure: null,
   message: null,
 };
@@ -46,7 +47,6 @@ export const adminSlice = createSlice({
       state.loading = false;
       state.message = action.payload.message;
       state.success = action.payload.success;
-      
     },
     deleteUserFailure: (state) => {
       state.loading = false;
@@ -58,7 +58,7 @@ export const adminSlice = createSlice({
       state.loading = false;
       state.message = action.payload.message;
       state.success = action.payload.success;
-      state.sellerReqs= action.payload.reqs;
+      state.sellerReqs = action.payload.reqs;
       // console.log(action.payload);
       // console.log(action.payload.message);
       // console.log(action.payload.reqs);
@@ -66,7 +66,18 @@ export const adminSlice = createSlice({
     sellerReqFailure: (state) => {
       state.loading = false;
     },
-
+    getOrdersReq: (state) => {
+      state.loading = true;
+    },
+    getOrdersSuccess: (state, action) => {
+      state.loading = false;
+      state.allOrders = action.payload.orders;
+      state.success = action.payload.success;
+      // console.log(action.payload);
+    },
+    getOrdersFailure: (state) => {
+      state.loading = false;
+    },
     clearMsgs: (state) => {
       state.success = null;
       state.failure = null;
@@ -89,6 +100,9 @@ export const {
   sellerReq,
   sellerReqSuccess,
   sellerReqFailure,
+  getOrdersReq,
+  getOrdersSuccess,
+  getOrdersFailure,
   clearMsgs,
 } = adminSlice.actions;
 

@@ -1,7 +1,8 @@
 // import { Suspense } from "react";
 import { lazy } from "react";
 import { Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import ReactGA from 'react-ga4'; // Import ReactGA
 
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 // using lazy function
@@ -46,6 +47,18 @@ import Checkout from "./pages/pay/Checkout.jsx";
 // import Admin from "./admin/admin.jsx";
 
 const Admin = lazy(() => import("./admin/admin.jsx"));
+const GA_TRACKING_ID = import.meta.env.VITE_REACT_APP_GA_TRACKING_ID;
+console.log(GA_TRACKING_ID);
+ReactGA.initialize(GA_TRACKING_ID);
+// Custom hook to track page views
+function usePageViews() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Sends page view event to Google Analytics
+    ReactGA.send({ hitType: "pageview", page: location.pathname + location.search });
+  }, [location]);
+}
 
 function App() {
   return (
@@ -91,6 +104,10 @@ function App() {
                 element={<Sellerpanel active={"create"} />}
               />
               <Route
+                path="/seller/listing/update"
+                element={<Sellerpanel active={"update"} />}
+              />
+              <Route
                 path="/seller/notification"
                 element={<Sellerpanel active={"notification"} />}
               />
@@ -109,6 +126,10 @@ function App() {
               <Route
                 path="/admin/messages"
                 element={<Admin active={"messages"} />}
+              />
+              <Route
+                path="/admin/orders"
+                element={<Admin active={"orders"} />}
               />
               <Route
                 path="/admin/sellerreqs"
@@ -134,6 +155,10 @@ function App() {
               <Route
                 path="/admin/profile"
                 element={<Admin active={"profile"} />}
+              />
+              <Route
+                path="/admin/all/categories"
+                element={<Admin active={"allcategories"} />}
               />
             </Route>
             <Route path="/:category" element={<CategoryName />} />

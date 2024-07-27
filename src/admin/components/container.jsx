@@ -9,6 +9,8 @@ import User from "../pages/users/User.jsx";
 import UserProfile from "../pages/users/user/userProfile.jsx";
 import SellerRequests from "../pages/sellerReqs/SellerRequests.jsx";
 import SellerProfile from "../pages/sellerReqs/user/sellerProfile.jsx";
+import Orders from "../pages/orders/Orders.jsx";
+import ListedCategories from "../pages/categories/Categories.jsx";
 
 export default function Container({ active = "home" }) {
   return (
@@ -31,6 +33,10 @@ export default function Container({ active = "home" }) {
         <User />
       ) : active === "user" ? (
         <UserProfile />
+      ) : active === "orders" ? (
+        <Orders />
+      ) : active === "allcategories" ? (
+        <ListedCategories />
       ) : null}
     </div>
   );

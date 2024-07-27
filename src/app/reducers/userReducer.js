@@ -28,6 +28,8 @@ export const userSlice = createSlice({
       state.isAuthenticated = action.payload.success;
       state.user = action.payload.user;
       state.success = action.payload.message;
+      state.token = action.payload.token;
+
       // console.log(`register success`);
     },
     registerFail: (state, action) => {
@@ -45,12 +47,35 @@ export const userSlice = createSlice({
       };
     },
     loginSuccess: (state, action) => {
+      console.log(action.payload);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
       state.user = action.payload.user;
       state.success = action.payload.message;
+      state.token = action.payload.token;
     },
     loginFail: (state, action) => {
+      // console.log(action.payload);
+      state.loading = false;
+      state.isAuthenticated = action.payload.success;
+      state.user = null;
+      state.failure = action.payload.message;
+      // console.log(action.payload.message);
+    },
+    getUserRequest: (state) => {
+      return {
+        ...state,
+        loading: true,
+      };
+    },
+    getUserSuccess: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = action.payload.success;
+      state.user = action.payload.user;
+      state.success = action.payload.message;
+      state.token = action.payload.token;
+    },
+    getUserFail: (state, action) => {
       // console.log(action.payload);
       state.loading = false;
       state.isAuthenticated = action.payload.success;
@@ -113,6 +138,9 @@ export const {
   loginRequest,
   loginSuccess,
   loginFail,
+  getUserRequest,
+  getUserSuccess,
+  getUserFail,
   logoutRequest,
   logoutSuccess,
   logoutFail,

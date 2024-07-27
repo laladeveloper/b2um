@@ -17,16 +17,16 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addproduct: (state) => {
+    addCartItemReq: (state) => {
       state.loading = true;
     },
-    getAllCategoriesSuccess: (state, action) => {
+    addCartItemSuccess: (state, action) => {
       state.loading = false;
-      state.allCategories = action.payload.categories;
+      state.allCategories = action.payload.product;
       state.success = action.payload.success;
       // console.log(action.payload);
     },
-    getAllCategoriesFailure: (state) => {
+    addCartItemFailure: (state) => {
       state.loading = false;
     },
 

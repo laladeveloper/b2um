@@ -5,7 +5,7 @@ export default function Card({ data, col }) {
   return (
     <Link
       className="card block p-2 w-[49%] h-[170px] text-white no-underline md:w-[24%] md:h-[200px]"
-      to={"/trending/" + data.name +"/" + data.name }
+      to={"/trending/" + data.name  }
     >
       <div
         className="card-cont bg-[#e1e1e1] bg-no-repeat bg-contain w-full h-full md:h-[85%] rounded-[10px] p-2 cursor-pointer"

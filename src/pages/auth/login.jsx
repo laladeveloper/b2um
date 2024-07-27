@@ -37,7 +37,7 @@ export default function Login() {
         setIsLoading(false);
         return;
       }
-     
+     console.log(username, password);
       dispatch(loginUser(username, password));
      
     } catch (error) {
@@ -71,7 +71,7 @@ export default function Login() {
     <div className="authbody">
       <Header hidefooter={true} isloggedorauth={true} />
       <div className="authcont">
-        <h2>Welcome back!</h2>
+        <h2>Welcome Back😊!</h2>
 
         <form onSubmit={handleSubmit} method="post">
           <input

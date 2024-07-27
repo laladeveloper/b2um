@@ -1,8 +1,22 @@
-
 import axios from "axios";
-import { deleteUserFailure, deleteUserReq, deleteUserSuccess, getUserFailure, getUserReq, getUserSuccess, gettUsersFailure, gettUsersReq, gettUsersSuccess, sellerReq, sellerReqFailure, sellerReqSuccess } from "../reducers/adminReducer";
+import {
+  deleteUserFailure,
+  deleteUserReq,
+  deleteUserSuccess,
+  getOrdersFailure,
+  getOrdersReq,
+  getOrdersSuccess,
+  getUserFailure,
+  getUserReq,
+  getUserSuccess,
+  gettUsersFailure,
+  gettUsersReq,
+  gettUsersSuccess,
+  sellerReq,
+  sellerReqFailure,
+  sellerReqSuccess,
+} from "../reducers/adminReducer";
 const baseUrl = import.meta.env.VITE_BACKEND_URL; // Include protocol in base URL
-
 
 export const getUsers = () => async (dispatch) => {
   try {
@@ -17,6 +31,18 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
+export const getOrders = () => async (dispatch) => {
+  try {
+    dispatch(getOrdersReq());
+    const { data } = await axios.get(`${baseUrl}/api/order/all`);
+    console.log(data.orders);
+    const orders = data.orders;
+    dispatch(getOrdersSuccess(data));
+  } catch (error) {
+    console.log(error);
+    dispatch(getOrdersFailure());
+  }
+};
 
 export const getUser = (username) => async (dispatch) => {
   try {
@@ -48,7 +74,6 @@ export const deleteUser = (username) => async (dispatch) => {
   }
 };
 
-
 export const getSellerReqs = (token) => async (dispatch) => {
   try {
     dispatch(sellerReq());
@@ -58,7 +83,7 @@ export const getSellerReqs = (token) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await axios.get(`${baseUrl}/api/user/reqSeller`,config);
+    const response = await axios.get(`${baseUrl}/api/user/reqSeller`, config);
 
     const users = response.data;
     dispatch(sellerReqSuccess(users));
@@ -67,4 +92,3 @@ export const getSellerReqs = (token) => async (dispatch) => {
     dispatch(sellerReqFailure());
   }
 };
-

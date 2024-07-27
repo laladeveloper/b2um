@@ -1,4 +1,7 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { baseUrl } from "../../assets/baseURL.js";
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header";
 import Searchmain from "../../components/common/Search.jsx";
@@ -7,15 +10,7 @@ import Hero from "../../components/home/Hero.jsx";
 import Heroswiper from "../../components/home/Heroswiper.jsx";
 import Cardsection from "../../components/home/Homecards/Cardsection.jsx";
 import PaymentMethod from "../../components/home/PaymentMethod.jsx";
-import data from "../../datasets/Homecarddata.json";
 import "./home.css";
-import Loader from "../../Loader.jsx";
-import { Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts } from "../../app/actions/prdctAction.js";
-import { getAllCategories } from "../../app/actions/categoryAction.js";
-import axios from "axios";
-import { baseUrl } from "../../assets/baseURL.js";
 
 export default function Home() {
   const dispatch = useDispatch();

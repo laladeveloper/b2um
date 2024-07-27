@@ -92,7 +92,7 @@ const User = () => {
                 <th onClick={() => sortData("_id")}>
                   <p className="flex items-center ">
                     {" "}
-                    ID
+                    UID
                     {sortConfig.key === "_id" && (
                       <span className="sort-icon mr-4">
                         {sortConfig.direction === "asc" ? (
@@ -169,7 +169,7 @@ const User = () => {
                   <td>
                     {index + 1 + currentPage * itemsPerPage - itemsPerPage}
                   </td>
-                  <td>{user._id}</td>
+                  <td>{user.uid}</td>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>

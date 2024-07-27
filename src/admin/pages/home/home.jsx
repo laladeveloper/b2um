@@ -15,6 +15,7 @@ import Header from "../../../components/home/Homecards/Header";
 import { getUsers } from "../../../app/actions/adminActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../../app/actions/categoryAction";
+import { Link } from "react-router-dom";
 
 function Lists({ data }) {
   return (
@@ -67,12 +68,15 @@ export default function Home() {
         <h1 className="home-lead-title">Dashboard</h1>
 
         <div className="home-lead-card-fp">
-          <div className="home-lead-cardcont">
+          <Link to="/admin/users">
+          <div className="home-lead-cardcont cursor-pointer">
             <FaUsers size={30} color="blue" />
             <div>Active Users:{allUsers ? <> {allUsers.length} </> : 0} </div>
           </div>
-         
-          <div className="home-lead-cardcont">
+          </Link>
+         {/* <Link to="/admin/all/categories">
+         </Link> */}
+          <div className="home-lead-cardcont cursor-pointer">
             <img src={svg2} />
             <div>Listed Categories: { allCategories ? allCategories.length : 0 }</div>
           </div>

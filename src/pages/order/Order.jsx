@@ -9,13 +9,11 @@ import logo from "../../assets/payment logos/logos.png";
 const Order = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { productName, productId, orderId, quantity, price } =
-    location.state || {}; // Destructure state
-
+  const { productName, productId, orderId, quantity, price } =  location.state || {}; // Destructure state
   const [orderDetails, setOrderDetails] = useState({
     orderId,
-    productID: productId ,
-    productName: productName ,
+    productID: productId,
+    productName: productName,
     quantity: quantity,
     price: price,
   });
@@ -76,12 +74,10 @@ const Order = () => {
           </div>
           <div className="bg-gray-50 p-6 rounded-lg shadow-md ">
             <h2 className="text-xl font-semibold mb-4">Payment Options</h2>
-            <img src={logo} alt="" />
+           <div className="flex justify-center items-center">
+             <img src={logo} alt=""  />
+            </div>
             <PaymentForm orderDetails={orderDetails} />
-            {/* <h1 onClick={paynow} className="w-full bg-teal-300 py-3 text-center rounded-lg hover:text-gray-50 cursor-pointer">
-              Pay Now
-            </h1> */}
-            {/* Add the PaymentForm component */}
           </div>
         </div>
       </div>

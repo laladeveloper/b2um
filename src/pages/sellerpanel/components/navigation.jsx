@@ -36,6 +36,7 @@ export default function Navigation({ active = "home" }) {
         <div className="nav-tab-title">Create</div>
       </Link>
 
+     
       <Link to={"/seller/notification"} className={_class_("notification")}>
         <MdNotificationsNone size={size} />
         <div className="nav-tab-title">Notification</div>

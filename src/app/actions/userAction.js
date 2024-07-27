@@ -1,6 +1,9 @@
 // userActions.js
 import axios from "axios";
 import {
+  getUserFail,
+  getUserRequest,
+  getUserSuccess,
   loginFail,
   loginRequest,
   loginSuccess,
@@ -57,9 +60,10 @@ export const loginUser = (username, password) => async (dispatch) => {
       },
       // body:(username, password),
       body: JSON.stringify({ username, password }),
-
+      
       // mode: "no-cors", // Set request mode to 'no-cors'
     });
+    console.log(`username`,username, password);
 
     const data = await response.json();
     console.log(JSON.stringify(data));
@@ -87,15 +91,54 @@ export const loginUser = (username, password) => async (dispatch) => {
   }
 };
 
-export const updateUser =  (token, updateData) => async (dispatch) => {
+export const getUser = (uid) => async (dispatch) => {
+  console.log(`getuser called`);
+  console.log(uid);
   try {
+    dispatch(getUserRequest());
+    const response = await fetch(`${baseUrl}/api/user/id/${uid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
+    const data = await response.json();
+    console.log(JSON.stringify(data));
+    console.log(data);
+    if (data.success === true) {
+      localStorage.setItem("user", JSON.stringify(data));
+      dispatch(getUserSuccess(data));
+      return data;
+    } else if (response.status === 401) {
+      const failMsg = {
+        success: false,
+        message: ` else if You are logged out, Please login/SignUp again`,
+      };
+      localStorage.removeItem("user");
+      dispatch(getUserFail(failMsg));
+      // dispatch(getUserFail(data));
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    localStorage.removeItem("user");
+    const failMsg = {
+      success: false,
+      message: `You are logged out, Please login/SignUp again`,
+    };
+    dispatch(getUserFail(failMsg));
+  }
+};
+
+export const updateUser = (token, updateData) => async (dispatch) => {
+  try {
+    console.log(token);
     // console.log(updateData);
     dispatch(updateUserRequest());
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
-      
       },
     };
     // make request with axios
@@ -104,7 +147,7 @@ export const updateUser =  (token, updateData) => async (dispatch) => {
       updateData,
       config
     );
-    
+
     // console.log(response);
     const data = await response.data;
     // console.log(data);
@@ -114,10 +157,10 @@ export const updateUser =  (token, updateData) => async (dispatch) => {
 
       localStorage.setItem("user", JSON.stringify(data));
     }
-    
+
     if (data.success) {
       localStorage.removeItem("user");
-  
+
       localStorage.setItem("user", JSON.stringify(data));
       dispatch(updateUserSuccess(data));
       return data;

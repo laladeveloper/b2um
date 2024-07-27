@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './profile.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, updateUser } from '../../../../app/actions/userAction';
+import { getUser, logout, updateUser } from '../../../../app/actions/userAction';
 import { toast } from 'sonner';
 
 export default function Profile() {
@@ -12,6 +12,7 @@ export default function Profile() {
     const [lname, setLname] = useState(user.lname);
     const [username, setUsername] = useState(user.username);
     const [email, setEmail] = useState(user.email);
+    const [uid, setUid] = useState(user._id);
     const [rule, setRule] = useState(user.role);
     const [isVerifiedSeller, setIsVerifiedSeller] = useState(
       user.isVerifiedSeller
@@ -51,6 +52,10 @@ export default function Profile() {
       setEditing(!editing);
       toast.info(`Update your Profile as you want`);
     };
+    useEffect(() => {
+     getUser(uid)
+    }, [])
+    
   return (
     <div className="sellerpanel-profile">
       <div style={{ paddingTop: "2em" }}>

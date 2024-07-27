@@ -4,19 +4,31 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 import "./profile.css";
 import axios from "axios";
-import { logout, updateUser } from "../../app/actions/userAction";
+import { getUser, logout, updateUser } from "../../app/actions/userAction";
 import { toast } from "sonner";
 import { clearMsgs } from "../../app/reducers/userReducer";
-import {baseUrl} from "../../assets/baseURL"
+import { baseUrl } from "../../assets/baseURL";
 import { BiInfoCircle } from "react-icons/bi";
 
 export default function Profile() {
-  const { user, token, message } = useSelector((state) => state.user);
-  const [fname, setFname] = useState(user.fname);
-  const [lname, setLname] = useState(user.lname);
-  const [username, setUsername] = useState(user.username);
-  const [email, setEmail] = useState(user.email);
-  const [rule, setRule] = useState(user.role);
+  const { user, token, isAuthenticated } = useSelector((state) => state.user);
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [rule, setRule] = useState("");
+  const [uid, setUid] = useState("");
+  useEffect(() => {
+    setFname(user.fname);
+    setLname(user.lname);
+    setUsername(user.username);
+    setEmail(user.email);
+    setRule(user.role);
+    setUid(user.uid);
+  }, [user]);
+
+  console.log(user._id);
+  console.log(token);
   const [isVerifiedSeller, setIsVerifiedSeller] = useState(
     user.isVerifiedSeller
   );
@@ -25,14 +37,13 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const changebtn = ()=>{
+  const changebtn = () => {
     if (editing) {
-       toast.info(`Click Below Button to Save changes`);
-      } else {
-        
-        toast.info(`Click Below Button to Make changes`);
+      toast.info(`Click Below Button to Save changes`);
+    } else {
+      toast.info(`Click Below Button to Make changes`);
     }
-  }
+  };
   const loggedout = () => {
     dispatch(logout());
     setSuccessMsg(`Logout Successful`);
@@ -44,11 +55,10 @@ export default function Profile() {
     setSuccessMsg("");
     navigate("/");
   };
-  const updateData = {fname, lname, username,email}
-  const editProfile =async () => {
-    
+  const updateData = { fname, lname, username, email };
+  const editProfile = async () => {
     if (editing === true) {
-     dispatch(updateUser(token, updateData));
+      dispatch(updateUser(token, updateData));
       toast.success(`Your changes are saved Succefully`);
 
       setEditing(!editing);
@@ -57,140 +67,157 @@ export default function Profile() {
     setEditing(!editing);
     toast.info(`Update your Profile as you want`);
   };
+  // if (isAuthenticated) {
+  //   useEffect(() => {
+  //     dispatch(getUser(uid));
+  //   }, []);
+  // }
 
   return (
-    <div>
-      <Header active={"profile"} />
-      <div style={{ marginTop: "6em" }}>
-        <div className="profile-profilepic">
-          {fname?.charAt(0).toUpperCase()}{" "}
-        </div>
-      </div>
-
-      <div>
-        {fname ? (
-          <h1 style={{ textAlign: "center", color: "rbga(0,0,0,0.7)" }}>
-            {fname + " " + lname}
-          </h1>
-        ) : (
-          <h1 style={{ textAlign: "center", color: "rbga(0,0,0,0.7)" }}>
-            {username}
-          </h1>
-        )}
-
-        {rule === "user" ? (
-          <button className="profile-sellbtn">
-            <Link to="/seller" style={{ textDecoration: "none" }} id="link">
-              Register as seller
-            </Link>
-          </button>
-        ) : null}
-        {rule === "seller" ? (
-          <button className="profile-sellbtn">
-            <Link
-              to="/seller/dashboard"
-              style={{ textDecoration: "none" }}
-              id="link"
-            >
-              Seller Dashboard
-            </Link>
-          </button>
-        ) : null}
-        {rule === "admin" ? (
-          <button className="profile-sellbtn">
-            <Link to="/admin" style={{ textDecoration: "none" }} id="link">
-              Admin Dashboard
-            </Link>
-          </button>
-        ) : null}
-      </div>
-
-      <div className="profile-content-body">
-        <div className="profile-meta-body">
-          <div className="profile-meta-cont">
-            <span>Available Balance</span>
-            <span style={{ fontWeight: 700 }}>{user.balance} USD</span>
-          </div>
-          <div className="profile-meta-cont">
-            <span>Points Earned</span>
-            <span style={{ fontWeight: 700 }}>{user.points} POINTS</span>
-          </div>
-        </div>
-
-        <div>
-          <div className="profile-lead-inp">
-            <div className="profile-lead-inp-title">
-              {editing ? "Update Name" : "First & Last Name"}
+    <>
+      {user ? (
+        <>
+          {" "}
+          <div>
+            <Header active={"profile"} />
+            <div style={{ marginTop: "6em" }}>
+              <div className="profile-profilepic">
+                {fname?.charAt(0).toUpperCase()}{" "}
+              </div>
             </div>
-            <div className="profile-lead-inp-subcont sojc0">
-              {/* <label htmlFor="fname">First Name</label> */}
-              <input
-                type="text"
-                placeholder={fname}
-                name="fname"
-                id="fname"
-                value={fname}
-                onChange={(e) => setFname(e.target.value)}
-                disabled={!editing}
-              />
-              <input
-                type="text"
-                placeholder={lname}
-                name="lname"
-                id="lname"
-                value={lname}
-                onChange={(e) => setLname(e.target.value)}
-                disabled={!editing}
-              />
-              <button onClick={changebtn}>
-                {" "}
-                {editing ? "Change" : "Edit"}{" "}
-              </button>
-            </div>
-          </div>
-          {/*  */}
 
-          <div className="profile-lead-inp">
-            <div className="profile-lead-inp-title">
-              {" "}
-              {editing ? "Update Username" : "Username "}{" "}
-            </div>
-            <div className="profile-lead-inp-subcont">
-              <input
-                type="text"
-                name="username"
-                id="username"
-                placeholder={username}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled={!editing}
-              />
-              <button onClick={changebtn}>
-                {" "}
-                {editing ? "Change" : "Edit"}
-              </button>
-            </div>
-          </div>
-          <div className="profile-lead-inp">
-            <div className="profile-lead-inp-title">
-              {" "}
-              {editing ? "Update Email" : "Email"}{" "}
-            </div>
-            <div className=" emailinput">
-              <p>{email}</p>
-              <BiInfoCircle
-                size={20}
-                color="074173"
-                cursor="pointer"
-                onClick={() =>
-                  toast.info(`Email will be Unique and Can't Change`)
-                }
-              />
-            </div>
-          </div>
-          {/*  */}
+            <div>
+              {fname ? (
+                <h1 style={{ textAlign: "center", color: "rbga(0,0,0,0.7)" }}>
+                  {fname + " " + lname}
+                </h1>
+              ) : (
+                <h1 style={{ textAlign: "center", color: "rbga(0,0,0,0.7)" }}>
+                  {username}
+                </h1>
+              )}
 
-          {/* <div className="profile-lead-inp">
+              {rule === "user" ? (
+                <button className="profile-sellbtn">
+                  <Link
+                    to="/seller"
+                    style={{ textDecoration: "none" }}
+                    id="link"
+                  >
+                    Register as seller
+                  </Link>
+                </button>
+              ) : null}
+              {rule === "seller" ? (
+                <button className="profile-sellbtn">
+                  <Link
+                    to="/seller/dashboard"
+                    style={{ textDecoration: "none" }}
+                    id="link"
+                  >
+                    Seller Dashboard
+                  </Link>
+                </button>
+              ) : null}
+              {rule === "admin" ? (
+                <button className="profile-sellbtn">
+                  <Link
+                    to="/admin"
+                    style={{ textDecoration: "none" }}
+                    id="link"
+                  >
+                    Admin Dashboard
+                  </Link>
+                </button>
+              ) : null}
+            </div>
+
+            <div className="profile-content-body">
+              <div className="profile-meta-body">
+                <div className="profile-meta-cont">
+                  <span>Available Balance</span>
+                  <span style={{ fontWeight: 700 }}>{user.balance} USD</span>
+                </div>
+                <div className="profile-meta-cont">
+                  <span>Points Earned</span>
+                  <span style={{ fontWeight: 700 }}>{user.points} POINTS</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="profile-lead-inp">
+                  <div className="profile-lead-inp-title">
+                    {editing ? "Update Name" : "First & Last Name"}
+                  </div>
+                  <div className="profile-lead-inp-subcont sojc0">
+                    {/* <label htmlFor="fname">First Name</label> */}
+                    <input
+                      type="text"
+                      placeholder={fname}
+                      name="fname"
+                      id="fname"
+                      value={fname}
+                      onChange={(e) => setFname(e.target.value)}
+                      disabled={!editing}
+                    />
+                    <input
+                      type="text"
+                      placeholder={lname}
+                      name="lname"
+                      id="lname"
+                      value={lname}
+                      onChange={(e) => setLname(e.target.value)}
+                      disabled={!editing}
+                    />
+                    <button onClick={changebtn}>
+                      {" "}
+                      {editing ? "Change" : "Edit"}{" "}
+                    </button>
+                  </div>
+                </div>
+                {/*  */}
+
+                <div className="profile-lead-inp">
+                  <div className="profile-lead-inp-title">
+                    {" "}
+                    {editing ? "Update Username" : "Username "}{" "}
+                  </div>
+                  <div className="profile-lead-inp-subcont">
+                    <input
+                      type="text"
+                      name="username"
+                      id="username"
+                      placeholder={username}
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      disabled={!editing}
+                    />
+                    <button onClick={changebtn}>
+                      {" "}
+                      {editing ? "Change" : "Edit"}
+                    </button>
+                  </div>
+                </div>
+                <div className="profile-lead-inp">
+                  <div className="profile-lead-inp-title">
+                    {" "}
+                    {editing ? "Update Email" : "Email"}{" "}
+                  </div>
+                  <div className=" emailinput">
+                    <p>{email}</p>
+                    <BiInfoCircle
+                      size={20}
+                      color="074173"
+                      cursor="pointer"
+                      onClick={() =>
+                        toast.info(`Email will be Unique and Can't Change`)
+                      }
+                    />
+                  </div>
+                </div>
+                {/*  */}
+
+                {/* <div className="profile-lead-inp">
             <div className="profile-lead-inp-title">Change Password</div>
             <div className="profile-lead-inp-subcont sojc0">
               <input type="text" placeholder="New password" />
@@ -198,22 +225,37 @@ export default function Profile() {
               <button>Change</button>
             </div>
           </div> */}
-          {/*  */}
-        </div>
+                {/*  */}
+              </div>
 
-        <div className=" mb-60 flex justify-between">
-          <button className="logout-btn" onClick={editProfile}>
-            <h4 style={{ textDecoration: "none" }} id="link">
-              {editing ? "Save" : "Edit Profile"}
-            </h4>
-          </button>
-          <button className="logout-btn" onClick={loggedout}>
-            <h4 style={{ textDecoration: "none" }} id="link">
-              Logout
-            </h4>
-          </button>
-        </div>
-      </div>
-    </div>
+              <div className=" mb-60 flex justify-between">
+                <button className="logout-btn" onClick={editProfile}>
+                  <h4 style={{ textDecoration: "none" }} id="link">
+                    {editing ? "Save" : "Edit Profile"}
+                  </h4>
+                </button>
+                <button className="logout-btn" onClick={loggedout}>
+                  <h4 style={{ textDecoration: "none" }} id="link">
+                    Logout
+                  </h4>
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="flex flex-col h-screen justify-center items-center">
+            <h1 className="text-2xl m-2 text-rose-600"> You are logged out </h1>
+            <h2 className="text-lg m-2">Please Login/SignUp Again</h2>
+            <h3 className="underline m-2 text-teal-900">
+              <a href="/login" className="">
+                Sign In{" "}
+              </a>
+            </h3>
+          </div>
+        </>
+      )}
+    </>
   );
 }
