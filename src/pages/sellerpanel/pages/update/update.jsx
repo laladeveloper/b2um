@@ -9,6 +9,8 @@ import { clearProductMsgs } from "../../../../app/reducers/productRdcr";
 import { getAllCategories } from "../../../../app/actions/categoryAction";
 import { BiRefresh } from "react-icons/bi";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../../../../assets/baseURL";
 
 const updateListing = () => {
 
@@ -147,7 +149,8 @@ useEffect(() => {
       return;
     } 
     try {
-      dispatch(listProduct(productInfo, token));
+    //  const {data}= axios.put(`${baseUrl}`)
+    toast.info(`This feature will live soon`)
     } catch (error) {
       // console.error("Listing creation failed:", error);
       toast.error("Listing creation failed ");

@@ -313,7 +313,8 @@ export default function Register() {
   return (
     <div className="authbody">
       <Header hidefooter={true} />
-      <Flow1 />
+      {flow == 2 ? <Flow2/> :<Flow1/>}
+      
       <Footer />
     </div>
   );
